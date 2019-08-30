@@ -16,12 +16,13 @@
     <!-- <meta property="og:image:secure_url" content="https://github.com/HuangRunHua/huangrunhua.github.io/blob/master/img/welcome.jpg" /> -->
     <meta property="og:description" content="Welcome to Joker's Blog" />
 
-    <meta name="twitter:description" content="Welcome to Joker's Blog">
-    <meta name="twitter:site" content="@HookJoker">
-    <meta name="twitter:image" content="https://huangrunhua.github.io/img/head.jpg">
-    <meta name="twitter:title" content="Joker's Blog">
-    <meta name="twitter:creator" content="@HookJoker">
-    <meta name="twitter:card" content="summary">
+    <!-- 添加Twitter Card支持 -->
+    <meta name="twitter:description" content="Welcome to Joker's Blog" />
+    <meta name="twitter:site" content="@myblog" />
+    <meta name="twitter:image" content="https://huangrunhua.github.io/img/head.jpg" />
+    <meta name="twitter:title" content="Joker's Blog" />
+    <meta name="twitter:creator" content="@HookJoker" />
+    <meta name="twitter:card" content="summary" />
 
     
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
@@ -33,7 +34,7 @@
     <link rel="shortcut icon" href="{{ site.baseurl }}/img/favicon.ico">
 
     <!-- Safari Webpage Icon    by-BY -->
-    <!-- <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/apple-touch-icon.png"> -->
+    <link rel="apple-touch-icon" href="{{ site.baseurl }}/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
