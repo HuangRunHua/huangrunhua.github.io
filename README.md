@@ -8,6 +8,7 @@
 
 
 ### 使用Open Graph 和 适配Twitter Card
+![](https://github.com/HuangRunHua/huangrunhua.github.io/blob/master/img/intro.jpg)
 
 在原先的基础上，我还添加了一些网页链接预览的功能。从图中可以看到，当你通过iMessage、Facebook、Twitter分享你的博客网站给其他人的时候，就不再只显示单一的链接，还可以有图片和文字说明。具体的做法是打开head.html文件，往<head> </head>里面添加：
 
