@@ -4,7 +4,7 @@ title:      Constraint priority in application development 				# 标题
 subtitle:   Learn something about Constraint priority #副标题
 date:       2019-08-30 				# 时间
 author:     Joker Hook 						# 作者
-header-img: https://unsplash.com/@emilep?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText 	#这篇文章标题背景图片
+header-img: img/2.jpg 	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - iOS
