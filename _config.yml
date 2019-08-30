@@ -1,18 +1,18 @@
 # Site settings
 title: Joker's Blog
 SEOTitle: 润华的博客 | 云村的夏天
-header-img: img/post-bg-desk.jpg
+header-img: img/welcome.jpg
 email: h76joker@icloud.com
 description: "森林睡了，故事醒了"
 keyword: "HRH, HRH Blog, 润华的博客, huangrunhua, 黄润华, iOS, Apple, iPhone, swift"
 url: "http://huangrunhua.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/qiubaiying/qiubaiying.github.io.git" # you code repository
+github_repo: "https://github.com/HuangRunHua/huangrunhua.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "我躺在云端，放牧一群诗篇"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/head.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
