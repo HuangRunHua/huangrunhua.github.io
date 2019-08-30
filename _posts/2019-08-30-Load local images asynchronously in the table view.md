@@ -11,11 +11,6 @@ tags:								#标签
     - Swift
 ---
 
-# Load local images asynchronously in the table view
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/7594/1*Op7j1JenuEAmDPJwlwVnXw.jpeg)
 
 Chinese version -> [Here](https://medium.com/cocoa-touch-things/%E5%9C%A8%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%E9%87%8C%E9%9D%A2%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87-9894799090d8)
