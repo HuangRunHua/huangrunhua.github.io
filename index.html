@@ -2,7 +2,8 @@
 layout: page
 description: "森林睡了，故事醒了"
 ---
-
+<!-- 给网站添加图标，需要ico文件 -->
+<link rel="icon" href="Image/favicon.ico" type="image/x-icon" />
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
