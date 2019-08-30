@@ -4,6 +4,27 @@ description: "森林睡了，故事醒了"
 ---
 <!-- 给网站添加图标，需要ico文件 -->
 <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+
+
+{
+    "body": "https://huangrunhua.github.io/",
+    "sourceId": "<business_id>",
+    "destinationId": "<destination_id>",
+    "v": 1,
+    "type": "richLink",
+    "id": "<message_id>"",
+    "richLinkData": {
+        "url": "https://huangrunhua.github.io/",
+        "title": "iPad Pro",
+        "assets": {
+            "image": {
+              "data": "/9j/4AAQSkZJRgABAQA…………<snipped>…………AAQAB/Z",
+              "mimeType": "image/jpeg"
+            }
+        }
+    }
+}
+
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
