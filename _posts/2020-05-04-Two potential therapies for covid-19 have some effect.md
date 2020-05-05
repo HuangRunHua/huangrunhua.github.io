@@ -4,7 +4,7 @@ title:      Two potential therapies for covid-19 have some effect				# 标题
 subtitle:   Hope rears its head, but more information is needed #副标题
 date:       2020-05-04				# 时间
 author:     The Economist 						# 作者
-header-img: #img/20200509_blp902.jpg 	#这篇文章标题背景图片
+header-img: img/20200509_blp902.jpg 	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - Treating covid-19
