@@ -4,7 +4,7 @@ title:      Sparing a thought for the other Corona				# 标题
 subtitle:   The emerging world’s most celebrated brand shares its name with a pandemic #副标题
 date:       2020-05-04				# 时间
 author:     The Economist MEXICALI						# 作者
-header-img: ![](https://www.economist.com/img/b/1280/720/85/sites/default/files/20200509_BLP508.jpg)	#这篇文章标题背景图片
+header-img: img/20200509_BLP508.jpg	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - The synonymous crown affair
