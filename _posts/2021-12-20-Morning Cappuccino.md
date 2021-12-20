@@ -4,7 +4,7 @@ title:      Morning Cappuccino 				# 标题
 subtitle:   二〇二一年十二月二十一日 星期一 #副标题
 date:       2021-12-20 				# 时间
 author:     Joker Hook 						# 作者
-header-img: img/2.jpg 	#这篇文章标题背景图片
+header-img: img/1.jpg 	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - TikTok
