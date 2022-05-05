@@ -1,7 +1,7 @@
 ---
 layout:     post   				    # 使用的布局（不需要改）
 title:      函数参数标签和参数名称 				# 标题 
-subtitle:   不是所有的API都可以在任何平台随意使用 #副标题
+subtitle:   如何起好函数的参数名 #副标题
 date:       2022-5-5 				# 时间
 author:     Joker Hook 						# 作者
 header-img: img/6.jpg 	#这篇文章标题背景图片
