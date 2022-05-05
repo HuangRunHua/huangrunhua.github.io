@@ -1,7 +1,7 @@
 ---
 layout:     post   				    # 使用的布局（不需要改）
 title:      在Swift中使用let获取模式匹配的值 				# 标题 
-subtitle:   二〇二二年四月二十九日 星期五 #副标题
+subtitle:   Let x in where #副标题
 date:       2022-4-29 				# 时间
 author:     Joker Hook 						# 作者
 header-img: img/1.jpg 	#这篇文章标题背景图片
