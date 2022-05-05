@@ -1,7 +1,7 @@
 ---
 layout:     post   				    # 使用的布局（不需要改）
 title:      具有多个参数返回值的函数 				# 标题 
-subtitle:   二〇二二年五月五日 星期四 #副标题
+subtitle:   元组的妙用 #副标题
 date:       2022-5-5 				# 时间
 author:     Joker Hook 						# 作者
 header-img: img/2.jpg 	#这篇文章标题背景图片
