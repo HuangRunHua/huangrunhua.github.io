@@ -1,7 +1,7 @@
 ---
 layout:     post   				    # 使用的布局（不需要改）
 title:      可选的元组返回类型 				# 标题 
-subtitle:   二〇二二年五月五日 星期四 #副标题
+subtitle:   防止异常获取发生 #副标题
 date:       2022-5-5 				# 时间
 author:     Joker Hook 						# 作者
 header-img: img/4.jpg 	#这篇文章标题背景图片
