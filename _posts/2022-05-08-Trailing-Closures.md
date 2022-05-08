@@ -112,18 +112,6 @@ loadPicture(from: someServer) { picture in
 
 在本例中，`loadPicture(from:completion:onFailure:)`函数将其网络任务发送到后台，并在网络任务完成后调用两个完成处理程序之一。以这种方式编写该功能可以让您干净地将负责处理网络故障的代码与成功下载后更新用户界面的代码分开，而不是只使用一个处理这两种情况的闭包。
 
-$x_k = Fx_{k-1} + w_{k-1}$
-
-```latex
-$x_k = Fx_{k-1} + w_{k-1}$
-```
-
-\begin{align}
+$$
 x_k = Fx_{k-1} + w_{k-1}
-\end{align}
-
-```latex
-\begin{align}
-x_k = Fx_{k-1} + w_{k-1}
-\end{align}
-```
+$$
