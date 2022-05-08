@@ -1,7 +1,7 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
 title:      尾随闭包         
-subtitle:   异步加载图片的新方式 
+subtitle:   处理闭包表达式较长的情况 
 date:       2022-5-8                 # 时间
 author:     Joker Hook                         # 作者
 header-img: img/3.jpg     #这篇文章标题背景图片
