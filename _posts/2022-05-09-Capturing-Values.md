@@ -55,7 +55,7 @@ func incrementer() -> Int {
 let incrementByTen = makeIncrementer(forIncrement: 10)
 ```
 
-此示例设置了一个名为`incrementByTen`的常量，以引用每次调用时为其`runningTotal`变量添加10个增量函数。多次调用函数会显示此行为：
+此示例设置了一个名为`incrementByTen`的常量，**在每次调用时为其`runningTotal`变量都会自动添加10个增量函数**。多次调用函数会显示此行为：
 ```swift
 incrementByTen()
 // returns a value of 10
