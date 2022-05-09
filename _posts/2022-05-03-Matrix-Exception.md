@@ -14,7 +14,7 @@ tags:                                #标签
 设$\pmb{x}$为$n \times 1$维度的随机向量，记$\pmb{A}$为$n \times n$维度的矩阵，并设
 
 $$
-E[\pmb{x}] = \mu
+E[\pmb{x}] = \pmb{\mu}
 $$
 
 $$
