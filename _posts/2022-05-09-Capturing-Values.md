@@ -1,7 +1,7 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
 title:      在闭包中获取值
-subtitle:   处理闭包表达式较长的情况
+subtitle:   意想不到的BUG来源
 date:       2022-5-9                 # 时间
 author:     Joker Hook                         # 作者
 header-img: img/4.jpg     #这篇文章标题背景图片
