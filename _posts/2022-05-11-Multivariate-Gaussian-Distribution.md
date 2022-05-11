@@ -26,7 +26,7 @@ $$
 则随机变量的概率密度函数可以用如下形式来表示:
 
 $$
-p(\pmb{x}) = \frac{1}{(2\pi)^{\frac{d}{2}}|\Sigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\pmb{x}-\pmb{\mu})^T \Sigma^{-1}\pmb{x}-\pmb{\mu})}
+p(\pmb{x}) = \frac{1}{(2\pi)^{\frac{d}{2}}|\Sigma|^{\frac{1}{2}}}e^{-\frac{1}{2}(\pmb{x}-\pmb{\mu})^T \Sigma^{-1}(\pmb{x}-\pmb{\mu})}
 $$
 
 ## 常用性质
@@ -41,8 +41,8 @@ $$
 \pmb{a} \\
 \pmb{b}
 \end{array}\right),\left[\begin{array}{ll}
-\pmb{A} & \pmb{c} \\
-\pmb{c}^{\top} & \pmb{B}
+\pmb{A} & \pmb{C} \\
+\pmb{C}^{\top} & \pmb{B}
 \end{array}\right]\right\}
 $$
 
