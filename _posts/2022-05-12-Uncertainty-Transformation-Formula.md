@@ -26,7 +26,7 @@ $$
 $$
 \begin{align}
 E(\pmb{x}) &= \pmb{\mu_x} \\
-E((\pmb{x} - \pmb{\mu_x})(\pmb{x} - \pmb{\mu_x})^T) = \pmb{\Sigma_{xx}}
+E((\pmb{x} - \pmb{\mu_x})(\pmb{x} - \pmb{\mu_x})^T) &= \pmb{\Sigma_{xx}}
 \end{align}
 $$
 
@@ -35,14 +35,14 @@ $$
 $$
 \begin{align}
 \pmb{\mu_y} &= \pmb{f}(\pmb{\mu_x}) \\
-\pmb{\Sigma_{yy}} = \pmb{J}\pmb{\Sigma_{xx}}\pmb{J}^T
+\pmb{\Sigma_{yy}} &= \pmb{J}\pmb{\Sigma_{xx}}\pmb{J}^T
 \end{align}
 $$
 
 其中向量$\pmb{J}$为
 
 $$
-J = \frac{d\pmb{f}}{d\pmb{x}}
+\pmb{J} = \frac{d\pmb{f}}{d\pmb{x}}
 $$
 
 ## 应用实例
