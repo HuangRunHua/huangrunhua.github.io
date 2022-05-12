@@ -25,8 +25,8 @@ $$
 
 $$
 \begin{align}
-E(\pmb{x}) &= \pmb{\mu_x} \\
-E((\pmb{x} - \pmb{\mu_x})(\pmb{x} - \pmb{\mu_x})^T) &= \pmb{\Sigma_{xx}}
+&E(\pmb{x}) = \pmb{\mu_x} \\
+&E((\pmb{x} - \pmb{\mu_x})(\pmb{x} - \pmb{\mu_x})^T) = \pmb{\Sigma_{xx}}
 \end{align}
 $$
 
