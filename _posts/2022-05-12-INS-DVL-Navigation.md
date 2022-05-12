@@ -59,7 +59,7 @@ $$
 其中状态向量与系统噪声如下：
 
 $$
-$\boldsymbol{X}=\left[\begin{array}{lllllllllllll}\delta L & \delta \lambda & \delta v_{E} & \delta v_{N} & \alpha & \beta & \gamma & \varepsilon_{E} & \varepsilon_{N} & \varepsilon_{U} & \delta v_{d} & \delta \Delta & \delta C\end{array}\right]^{\mathrm{T}}$
+\boldsymbol{X}=\left[\begin{array}{lllllllllllll}\delta L & \delta \lambda & \delta v_{E} & \delta v_{N} & \alpha & \beta & \gamma & \varepsilon_{E} & \varepsilon_{N} & \varepsilon_{U} & \delta v_{d} & \delta \Delta & \delta C\end{array}\right]^{\mathrm{T}}
 $$
 
 $$
