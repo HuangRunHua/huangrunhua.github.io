@@ -10,9 +10,9 @@ tags:                                #标签
     - swift
 ---
 
-当闭包作为参数传递给函数时，闭包被称为转义函数，但在函数返回后调用闭包。当您声明将闭包作为其参数之一的函数时，您可以在参数类型之前编写`@escaping`，以指示允许闭包转义。
+当闭包作为参数传递给函数但在函数返回后才调用，该闭包被称为转义闭包。此时可以在参数类型之前添加`@escaping`关键字，以指示允许闭包转义。
 
-闭包可以转义的一种方法是存储在函数之外定义的变量中。例如，许多启动异步操作的函数将闭包参数作为完成处理程序。该函数在开始操作后返回，但在操作完成之前不会调用闭包——闭包需要转义，以便稍后调用。例如：
+闭包可以转义的一种方法是存储在函数之外定义的变量中。例如，许多启动异步操作的函数将闭包参数作为完成处理程序。该函数在开始操作后返回，但在操作完成之前不会调用闭包。例如：
 ```swift
 var completionHandlers: [() -> Void] = []
 func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
@@ -22,7 +22,7 @@ func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
 
 `someFunctionWithEscapingClosure(_:)`函数以闭包为参数，并将其添加到函数之外声明的数组中。如果您没有用`@escaping`标记此函数的参数，您将收到编译时错误。
 
-通常，闭包通过在闭包正文中使用变量来隐式捕获变量，但在这种情况下，您需要显式变量。如果您想捕获`self`，请在使用它时显式写入`self`，或将`self`包含在闭包的捕获列表中。写`self`明确可以让您表达自己的意图，并提醒您确认没有参考周期。例如，在下面的代码中，传递给`someFunctionWithEscapingClosure(_:)`的闭包显式引用自显式。相比之下，传递给`someFunctionWithNonescapingClosure(_:)`的闭包是一个不可转义闭包，这意味着它可以隐式引用`self`。
+通常，闭包通过在闭包正文中使用变量来隐式捕获变量，但在添加转义字符`@escaping`这种情况下，需要显式捕获变量。如果您想捕获`self`，请在使用它时显式写入`self`，或将`self`包含在闭包的捕获列表中。写`self`明确可以让您表达自己的意图，并提醒您确认没有参考周期。例如，在下面的代码中，传递给`someFunctionWithEscapingClosure(_:)`的闭包显式引用自显式，即添加了`self`关键字来表示获取变量`x`。相比之下，传递给`someFunctionWithNonescapingClosure(_:)`的闭包是一个不可转义闭包，这意味着它可以隐式引用`self`，即无需添加`self`关键字来表示获取变量`x`。
 ```swift
 func someFunctionWithNonescapingClosure(closure: () -> Void) {
     closure()
@@ -46,7 +46,7 @@ print(instance.x)
 // Prints "100”
 ```
 
-以下是`doSomething()`的一个版本，通过将其包含在闭包的捕获列表中来捕获`self`，然后隐含地引用`self`：
+以下是`doSomething()`的另一个版本，通过将其包含在闭包的捕获列表中来捕获`self`，然后隐含地引用`self`：
 ```swift
 class SomeOtherClass {
     var x = 10
