@@ -43,7 +43,7 @@ print(instance.x)
 
 completionHandlers.first?()
 print(instance.x)
-// Prints "100”
+// Prints "100"
 ```
 
 以下是`doSomething()`的另一个版本，通过将其包含在闭包的捕获列表中来捕获`self`，然后隐含地引用`self`：
