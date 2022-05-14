@@ -14,7 +14,7 @@ tags:                                #标签
 Xcode的程序包路径下存在以`.xclangspec`为后缀的文件夹。这些文件夹定义了Xcode用到的各种语言的语法说明，为`JSON`格式的文件。
 
 > 在Xcode程序包中进入如下文件夹即可找到`.xclangspec`文件
-> /Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/
+> ～/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/
 
 
 同时在相同路径下存在`DVTFoundation.xcplugindata`文件夹，配置该文件夹才可使的Xcode懂得支持的语言集合。
