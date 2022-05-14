@@ -25,4 +25,4 @@ incrementByTen()
 // returns a value of 60
 ```
 
-上面的示例表明，调用`incrementByTen`与调用`incrementByTen`相同。由于它们都引用相同的闭包，因此它们都会增量并返回相同的运行总数。
+上面的示例表明，调用`alsoIncrementByTen`与调用`incrementByTen`相同。由于它们都引用相同的闭包，因此它们都会增量并返回相同的运行总数。
