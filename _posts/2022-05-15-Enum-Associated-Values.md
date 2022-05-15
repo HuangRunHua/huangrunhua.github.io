@@ -1,7 +1,7 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
 title:      Enum中的关联值
-subtitle:   闭包作为函数参数
+subtitle:   为枚举类型设定类型关联值
 date:       2022-5-15                 # 时间
 author:     Joker Hook                         # 作者
 header-img: img/4.jpg     #这篇文章标题背景图片
