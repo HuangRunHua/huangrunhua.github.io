@@ -21,6 +21,8 @@ tags:                                #标签
 - **IF A THEN C**, 其中A为模糊用词， C为精确的数学表达式。例如`If velocity is high, then force = 3.14`。
 
 ## 模糊推理系统(Fuzy Inference Systems)
+
+### 模糊推理系统的结构
 标准模糊推理系统如下图所示:
 ![模糊推理系统](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/ANFIS/1.png)
 
@@ -32,3 +34,17 @@ tags:                                #标签
 - 反模糊接口，将推理的模糊结果转换为清晰的输出
 
 其中规则库与数据库的联合称为知识库。
+
+### 模糊推理步骤
+- **模糊化：** 将输入变量与前提部分的隶属函数进行比较，以获得每个语言标签的隶属度值
+- **计算规则权重：** 组合前提部分的成员值，以获得每个规则的权重
+- **计算结果：** 根据权重生成每个规则的合格结果（模糊或清晰）
+- **去模糊化：** 对合格的结果进行汇总，以产生清晰的输出
+
+## 自适应网络(Adaptive Networks)基础
+
+### 网络结构与学习法则
+自适应网络是一种多层前馈网络，其中每个节点对输入信号以及与该节点有关的一组参数执行特定功能（节点功能）。标准的自适应网络结构如下图所示:
+![标准的自适应网络结构](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/ANFIS/2.png)
+
+
