@@ -47,4 +47,73 @@ tags:                                #标签
 自适应网络是一种多层前馈网络，其中每个节点对输入信号以及与该节点有关的一组参数执行特定功能（节点功能）。标准的自适应网络结构如下图所示:
 ![标准的自适应网络结构](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/ANFIS/2.png)
 
+上述网络结构中，每个节点函数的选择取决于自适应网络需要执行的总体输入输出函数。自适应网络中的链路仅指示节点之间信号的流向；没有权重与链接关联。方形节点为自适应节点，具备参数；圆形节点为固定节点，没有参数。
 
+#### 基本原理
+定义一个L层网络，其中假设第k层有#k个节点，则第k层第i个节点的函数与实际输出为：
+
+$$
+O_{i}^{k}=O_{i}^{k}\left(O_{1}^{k-1}, \ldots O_{\#(k-1)}^{k-1}, a, b, c, \ldots\right)
+$$
+
+其中abc为网络节点参数。
+
+采用第p组数组进行网络训练，标记
+
+$$
+T_{m,p}
+$$
+
+为目标输出(正确的输出)的第m个分量，则本次数据**训练误差度量**为
+
+$$
+E_{p}=\sum_{m=1}^{\#(L)}\left(T_{m, p}-O_{m, p}^{L}\right)^{2}
+$$
+
+则所有数据训练后**总体误差测量值**表达式为:
+
+$$
+E=\sum_{p=1}^{P} E_{p}
+$$
+
+为使得训练误差度量与总体误差测量值达到最小，并注意到训练误差度量与总体误差测量值为网络实际输出与网络节点参数的函数，则可以使用梯度下降法使的误差达到理论最小值。
+
+训练数据和每个节点输出的错误率定义为:
+
+$$
+\frac{\partial E_{p}}{\partial O_{i, p}^{L}}=-2\left(T_{i, p}-O_{i, p}^{L}\right)
+$$
+
+训练数据和内部节点的错误率定义为:
+
+$$
+\frac{\partial E_{p}}{\partial O_{i, p}^{k}}=\sum_{m=1}^{\#(k+1)} \frac{\partial E_{p}}{\partial O_{m, p}^{k+1}} \frac{\partial O_{m, p}^{k+1}}{\partial O_{i, p}^{k}}
+$$
+
+综合上述两式子可以看出内部节点的错误率可以表示为下一层中节点的错误率的线性组合。
+
+训练数据和参数的错误率定义为:
+
+$$
+\frac{\partial E_{p}}{\partial \alpha}=\sum_{O^{*} \in S} \frac{\partial E_{p}}{\partial O^{*}} \frac{\partial O^{*}}{\partial \alpha}
+$$
+
+总参数错误率定义为上述错误率达累加和:
+
+$$
+\frac{\partial E}{\partial \alpha}=\sum^P_{p=1} \frac{\partial E_{p}}{\partial \alpha}
+$$
+
+通过求解上述表达式可以得到参数更新公式：
+
+$$
+\Delta \alpha=-\eta \frac{\partial E}{\partial \alpha}
+$$
+
+其中
+
+$$
+\eta=\frac{k}{\sqrt{\sum_{\alpha}\left(\frac{\partial E}{\partial \alpha}\right)^{2}}}
+$$
+
+改变k的值可以改变网络收敛速度。
