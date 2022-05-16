@@ -1,7 +1,7 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
 title:      隶属函数Membership Function
-subtitle:   为枚举类型设定类型关联值
+subtitle:   模糊推断基础概念
 date:       2022-5-16                 # 时间
 author:     Joker Hook                         # 作者
 header-img: img/5.jpg     #这篇文章标题背景图片
