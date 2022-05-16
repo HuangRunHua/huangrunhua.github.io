@@ -138,3 +138,18 @@ $$
 $$
 A_{P\times M}X_{M\times 1} = B_{P\times 1}
 $$
+
+上述方程存在最小二乘解:
+
+$$
+X^{*}=\left(A^{T} A\right)^{-1} A^{T} B
+$$
+
+为满足计算需求，最小二乘解可以写成迭代的形式:
+
+$$
+\left.\begin{array}{rl}
+X_{i+1} & =X_{i}+S_{i+1} a_{i+1}\left(b_{i+1}^{T}-a_{i+1}^{T} X_{i}\right) \\
+S_{i+1} & =S_{i}-\frac{S_{i} a_{i+1} a_{i+1}^{T} S_{i}}{1+a_{i+1}^{T} S_{i} a_{i+1}}, \quad i=0,1, \cdots, P-1
+\end{array}\right\}
+$$
