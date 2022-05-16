@@ -54,4 +54,4 @@ A(x)=\left\{\begin{array}{cc}
 $$
 
 图像依次如下:
-![](img/MembershipFunction/1.png)
+![](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/MembershipFunction/1.png)
