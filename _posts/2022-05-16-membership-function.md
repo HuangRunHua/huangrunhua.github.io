@@ -32,6 +32,16 @@ A(x)=\left\{\begin{array}{cc}
 \end{array}\right.
 $$
 
+#### 偏大型
+
+$$
+A(x)=\left\{\begin{array}{cc}
+0, & x<a \\
+\frac{x-a}{b-a}, & a \leq x \leq b \\
+1, & b<x
+\end{array}\right.
+$$
+
 #### 中间型
 
 $$
@@ -40,16 +50,6 @@ A(x)=\left\{\begin{array}{cc}
 1, & b \leq x<c \\
 \frac{d-x}{d-c}, & c \leq x \leq d \\
 0, & x<a \text { or } d<x
-\end{array}\right.
-$$
-
-#### 偏大型
-
-$$
-A(x)=\left\{\begin{array}{cc}
-0, & x<a \\
-\frac{x-a}{b-a}, & a \leq x \leq b \\
-1, & b<x
 \end{array}\right.
 $$
 
