@@ -27,6 +27,8 @@ ANFIS框架主要分为三个文件：
 
 ## 隶属函数分析(membership.py)
 本文件下定义了几类隶属函数的类模型，包括高斯隶属函数类模型(`GaussMembFunc`)与贝尔隶属函数类模型(`BellMembFunc`)等。本文主要分析高斯隶属函数类模型。
+
+#### GaussMembFunc类模型
 ```python
 class GaussMembFunc(torch.nn.Module):
     def __init__(self, mu, sigma):
@@ -58,3 +60,62 @@ def _mk_param(val):
     return torch.nn.Parameter(torch.tensor(val, dtype=torch.float))
 ```
 该函数的作用在于将标量值转变为一个高斯隶属函数类模型可识别的torch参数。
+
+#### make_gauss_mfs函数
+代码文件内还定义了一个`make_gauss_mfs`函数，用于获得多高斯隶属函数模型的情况:
+```python
+def make_gauss_mfs(sigma, mu_list):
+    return [GaussMembFunc(mu, sigma) for mu in mu_list]
+```
+
+`make_gauss_mfs`函数参数为隶属函数的标准差(`sigma`)与均值列表(`mu_list`)，函数返回一个高斯隶属函数类模型列表。
+
+#### make_anfis函数
+当获得到隶属函数之后，便可以将隶属函数与输入变量添加到ANFIS网络同时初始化网络，`make_anfis`函数的作用便在于此。完整的`make_anfis`函数代码如下:
+```python
+def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
+    # 获取输入量的个数
+    num_invars = x.shape[1]
+    # 沿着x每列求最大值和最小值
+    minvals, _ = torch.min(x, dim=0)
+    maxvals, _ = torch.max(x, dim=0)
+    # 得到输入各个状态量的取值范围
+    ranges = maxvals-minvals
+    invars = []
+    for i in range(num_invars):
+        # 计算高斯隶属函数的方差
+        sigma = ranges[i] / num_mfs
+        mulist = torch.linspace(minvals[i], maxvals[i], num_mfs).tolist()
+        invars.append(('x{}'.format(i), make_gauss_mfs(sigma, mulist)))
+    outvars = ['y{}'.format(i) for i in range(num_out)]
+
+    # 将 invars 和 outvars 作为参数传入 AnfisNet() 建立 ANFIS 网络
+    model = AnfisNet('Simple classifier', invars, outvars, hybrid=hybrid)
+    return model
+```
+
+`make_anfis`函数的参数为网络的输入变量`x`，隶属函数的个数`num_mfs`，网络输出量的个数`num_out`与是否使用最小二乘混合方法的标识位`hybrid`。默认情况下隶属函数个数为5个，网络为单个输出，同时网络默认使用最小二乘混合方法。
+
+变量`invars`是存放隶属函数的标签与隶属函数类模型的列表，`invars`通过如下代码添加变量:
+```python
+invars.append(('x{}'.format(i), make_gauss_mfs(sigma, mulist)))
+```
+执行之后，`invars`列表被修改为如下形式:
+```python
+invars = [
+            ['x0', [GaussMembFunc(), ...]], 
+            ['x1', [GaussMembFunc(), ...]], ...
+         ]
+```
+
+变量`outvars`是存放网络输出变量标签的列表，其内部形式为:
+```python
+outvars = ['y0', 'y1, ...]
+```
+
+`make_anfis`函数的输出为ANFIS网络，网络通过如下代码创建:
+```python
+model = AnfisNet('Simple classifier', invars, outvars, hybrid=hybrid)
+```
+
+
