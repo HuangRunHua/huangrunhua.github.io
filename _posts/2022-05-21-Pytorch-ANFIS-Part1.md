@@ -110,7 +110,7 @@ invars = [
 
 变量`outvars`是存放网络输出变量标签的列表，其内部形式为:
 ```python
-outvars = ['y0', 'y1, ...]
+outvars = ['y0', 'y1', ...]
 ```
 
 `make_anfis`函数的输出为ANFIS网络，网络通过如下代码创建:
