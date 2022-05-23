@@ -20,6 +20,7 @@ enum ArithmeticExpression {
     indirect case multiplication(ArithmeticExpression, ArithmeticExpression)
 }
 ```
+如果没有关键字`indirect`，则`addition`与`multiplication`无法关联两个`ArithmeticExpression`类型的值。
 
 您还可以在枚举开始前使用关键字`indirect`，以便为所有具有相关值的枚举案例启用间接：
 ```swift
