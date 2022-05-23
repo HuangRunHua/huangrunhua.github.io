@@ -75,21 +75,26 @@ def make_gauss_mfs(sigma, mu_list):
 ```python
 def make_anfis(x, num_mfs=5, num_out=1, hybrid=True):
     # 获取输入量的个数
+    
     num_invars = x.shape[1]
     # 沿着x每列求最大值和最小值
+    
     minvals, _ = torch.min(x, dim=0)
     maxvals, _ = torch.max(x, dim=0)
     # 得到输入各个状态量的取值范围
+    
     ranges = maxvals-minvals
     invars = []
     for i in range(num_invars):
         # 计算高斯隶属函数的方差
+        
         sigma = ranges[i] / num_mfs
         mulist = torch.linspace(minvals[i], maxvals[i], num_mfs).tolist()
         invars.append(('x{}'.format(i), make_gauss_mfs(sigma, mulist)))
     outvars = ['y{}'.format(i) for i in range(num_out)]
 
     # 将 invars 和 outvars 作为参数传入 AnfisNet() 建立 ANFIS 网络
+    
     model = AnfisNet('Simple classifier', invars, outvars, hybrid=hybrid)
     return model
 ```
