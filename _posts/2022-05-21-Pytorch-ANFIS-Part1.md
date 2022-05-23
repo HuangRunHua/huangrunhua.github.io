@@ -358,8 +358,56 @@ def forward(self, x):
     return rules
 ```
 
-#### WeightedSumLayer(torch.nn.Module)归一化层
-类模型`WeightedSumLayer`定义了第三层归一化层网络，前向传播返回触发强度归一化的结果，该类定义如下:
+#### ConsequentLayer(torch.nn.Module)第四层网络
+类模型`ConsequentLayer(torch.nn.Module)`定义了存在混合最小二乘法的第四层网络，其中`fit_coeff(self, x, weights, y_actual)`函数实现了最小二乘更新结果参数的功能:
+```python
+def fit_coeff(self, x, weights, y_actual):
+    '''
+        Use LSE to solve for coeff: y_actual = coeff * (weighted)x
+                x.shape: n_cases * n_in
+        weights.shape: n_cases * n_rules
+        [ coeff.shape: n_rules * n_out * (n_in+1) ]
+                y.shape: n_cases * n_out
+    '''
+    # Append 1 to each list of input vals, for the constant term:
+    x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
+    # Shape of weighted_x is n_cases * n_rules * (n_in+1)
+    weighted_x = torch.einsum('bp, bq -> bpq', weights, x_plus)
+    # Can't have value 0 for weights, or LSE won't work:
+    weighted_x[weighted_x == 0] = 1e-12
+    # Squash x and y down to 2D matrices for gels:
+    weighted_x_2d = weighted_x.view(weighted_x.shape[0], -1)
+    y_actual_2d = y_actual.view(y_actual.shape[0], -1)
+    # Use gels to do LSE, then pick out the solution rows:
+    try:
+        coeff_2d, _ = torch.gels(y_actual_2d, weighted_x_2d)
+    except RuntimeError as e:
+        print('Internal error in gels', e)
+        print('Weights are:', weighted_x)
+        raise e
+    coeff_2d = coeff_2d[0:weighted_x_2d.shape[1]]
+    # Reshape to 3D tensor: divide by rules, n_in+1, then swap last 2 dims
+    self.coeff = coeff_2d.view(weights.shape[1], x.shape[1]+1, -1).transpose(1, 2)
+    # coeff dim is thus: n_rules * n_out * (n_in+1)
+```
+前向传播主要实现输入特征的线性组合（参数称为结果参数，结果参数通过最小二乘法进行数值更新）与归一化触发强度进行乘积运算：
+```python
+def forward(self, x):
+    '''
+        Calculate: y = coeff * x + const   [NB: no weights yet]
+                x.shape: n_cases * n_in
+            coeff.shape: n_rules * n_out * (n_in+1)
+                y.shape: n_cases * n_out * n_rules
+    '''
+    # Append 1 to each list of input vals, for the constant term:
+    x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
+    # Need to switch dimansion for the multipy, then switch back:
+    y_pred = torch.matmul(self.coeff, x_plus.t())
+    return y_pred.transpose(0, 2)  # swaps cases and rules
+```
+
+#### WeightedSumLayer(torch.nn.Module)去模糊化层
+类模型`WeightedSumLayer`定义了第五层去模糊化层网络，前向传播返回第四层网络加权求和的结果，该类定义如下:
 ```python
 class WeightedSumLayer(torch.nn.Module):
     '''
@@ -380,4 +428,3 @@ class WeightedSumLayer(torch.nn.Module):
         y_pred = torch.bmm(tsk, weights.unsqueeze(2))
         return y_pred.squeeze(2)
 ```
-
