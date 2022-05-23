@@ -175,7 +175,7 @@ def __init__(self, description, invardefs, outvarnames, hybrid=True):
 varnames = [v for v, _ in invardefs]
 ```
 再将隶属函数传入模糊变量类模型内形成列表:
-```ptyhon
+```python
 mfdefs = [FuzzifyVariable(mfs) for _, mfs in invardefs]
 ```
 网络输入变量名`varnames`与模糊变量类模型列表`mfdefs`作为输入变量传入网络第一层`FuzzifyLayer`与第二层`AntecedentLayer`:
