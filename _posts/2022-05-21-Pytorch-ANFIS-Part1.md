@@ -155,12 +155,12 @@ def __init__(self, description, invardefs, outvarnames, hybrid=True):
 - `hybrid`: 是否使用混合最小二乘法
 
 `AnfisNet`类网络成员变量定义如下:
-- description: 描述语句
-- outvarnames: 网络输出变量名
-- hybrid: 是否使用混合最小二乘法
-- num_in: 网络输入变量个数
-- num_rules: 触发强度的个数/第二层元素的个数
-- layer: 网络的所有层
+- `description`: 描述语句
+- `outvarnames`: 网络输出变量名
+- `hybrid`: 是否使用混合最小二乘法
+- `num_in`: 网络输入变量个数
+- `num_rules`: 触发强度的个数/第二层元素的个数
+- `layer`: 网络的所有层
 
 初始化阶段将传入的输入变量与隶属函数列表`invardefs`进行处理，设
 ```python
@@ -182,6 +182,60 @@ mfdefs = [FuzzifyVariable(mfs) for _, mfs in invardefs]
 ```python
 FuzzifyLayer(mfdefs, varnames)
 AntecedentLayer(mfdefs)
+```
+
+由于ANFIS网络中第二层与第三层之间需要进行触发强度的计算，多个输入变量的隶属函数两两之间需要进行乘法运算，因此类成员变量`num_rules`存储总共需要计算的次数:
+```python
+self.num_rules = np.prod([len(mfs) for _, mfs in invardefs])
+```
+
+例如，
+```python
+invardefs = [
+    ['x0', ['f1', 'f2', 'f3']],
+    ['x1', ['f4', 'f5']],
+]
+```
+则`self.num_rules = 6`
+
+类成员变量`self.hybrid`用于判断网络是否使用混合最小二乘法，若使用则网络第四层为`ConsequentLayer`，否则为`PlainConsequentLayer`.
+
+类成员变量`self.layer`定义了完整的网络内部层结构，为顺序的字典，可以通过键来进行索引。
+```python
+self.layer = torch.nn.ModuleDict(OrderedDict([
+    ('fuzzify', FuzzifyLayer(mfdefs, varnames)),
+    ('rules', AntecedentLayer(mfdefs)),
+    ('consequent', cl),
+    ]))
+```
+
+第四层网络的系数可以通过如下方式获取:
+```python
+self.layer['consequent'].coeff
+```
+
+由于第四层网络需要使用前向传播或混合最小二乘法来更新，因此ANFIS网络中定义了两个类方法来实现系数的更新:
+```python
+@coeff.setter
+def coeff(self, new_coeff):
+    self.layer['consequent'].coeff = new_coeff
+
+def fit_coeff(self, x, y_actual):
+    if self.hybrid:
+        self(x)
+        self.layer['consequent'].fit_coeff(x, self.weights, y_actual)
+```
+
+ANFIS网络的前向传播部分如下:
+```python
+def forward(self, x):
+    self.fuzzified = self.layer['fuzzify'](x)
+    self.raw_weights = self.layer['rules'](self.fuzzified)
+    self.weights = F.normalize(self.raw_weights, p=1, dim=1)
+    self.rule_tsk = self.layer['consequent'](x)
+    y_pred = torch.bmm(self.rule_tsk, self.weights.unsqueeze(2))
+    self.y_pred = y_pred.squeeze(2)
+    return self.y_pred
 ```
 
 
