@@ -238,4 +238,36 @@ def forward(self, x):
     return self.y_pred
 ```
 
+#### FuzzifyVariable(torch.nn.Module)类模型
+`FuzzifyVariable(torch.nn.Module)类`定义了模糊化的基础操作。其类初始化方法为:
+```python
+# mfdefs的类型为GaussMembFunc或[GaussMembFunc, GaussMembFunc]
+
+def __init__(self, mfdefs):
+    super(FuzzifyVariable, self).__init__()
+    # 判断mfdefs是否为隶属函数类列表
+    
+    if isinstance(mfdefs, list): 
+        # mfnames = ['mf0', 'mf1', ...]
+        mfnames = ['mf{}'.format(i) for i in range(len(mfdefs))]
+        """
+            mfdefs为有顺序的字典
+            mfdefs = OrderedDict(
+                [
+                    ('mf0', [GaussMembFunc(), ...]),
+                    ('mf1', [GaussMembFunc(), ...]),
+                ]
+            )
+        """
+        mfdefs = OrderedDict(zip(mfnames, mfdefs))
+    # 转为模型可识别的类型
+    
+    self.mfdefs = torch.nn.ModuleDict(mfdefs)
+    self.padding = 0
+```
+
+类成员变量为:
+- mfdefs: 单个隶属函数/隶属函数列表
+- padding
+
 
