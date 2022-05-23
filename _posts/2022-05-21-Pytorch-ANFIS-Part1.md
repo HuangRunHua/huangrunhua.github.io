@@ -251,13 +251,21 @@ def __init__(self, mfdefs):
         # mfnames = ['mf0', 'mf1', ...]
         mfnames = ['mf{}'.format(i) for i in range(len(mfdefs))]
         """
+        
             mfdefs为有顺序的字典
+            
             mfdefs = OrderedDict(
+            
                 [
+                
                     ('mf0', [GaussMembFunc(), ...]),
+                    
                     ('mf1', [GaussMembFunc(), ...]),
+                    
                 ]
+                
             )
+            
         """
         mfdefs = OrderedDict(zip(mfnames, mfdefs))
     # 转为模型可识别的类型
@@ -367,11 +375,17 @@ def forward(self, x):
 ```python
 def fit_coeff(self, x, weights, y_actual):
     '''
+    
         Use LSE to solve for coeff: y_actual = coeff * (weighted)x
+        
                 x.shape: n_cases * n_in
+                
         weights.shape: n_cases * n_rules
+        
         [ coeff.shape: n_rules * n_out * (n_in+1) ]
+        
                 y.shape: n_cases * n_out
+                
     '''
     # Append 1 to each list of input vals, for the constant term:
     
@@ -404,10 +418,15 @@ def fit_coeff(self, x, weights, y_actual):
 ```python
 def forward(self, x):
     '''
+    
         Calculate: y = coeff * x + const   [NB: no weights yet]
+        
                 x.shape: n_cases * n_in
+                
             coeff.shape: n_rules * n_out * (n_in+1)
+            
                 y.shape: n_cases * n_out * n_rules
+                
     '''
     # Append 1 to each list of input vals, for the constant term:
     
@@ -423,18 +442,26 @@ def forward(self, x):
 ```python
 class WeightedSumLayer(torch.nn.Module):
     '''
+    
         Sum the TSK for each outvar over rules, weighted by fire strengths.
+        
         This could/should be layer 5 of the Anfis net.
+        
         I don't actually use this class, since it's just one line of code.
+        
     '''
     def __init__(self):
         super(WeightedSumLayer, self).__init__()
 
     def forward(self, weights, tsk):
         '''
+        
             weights.shape: n_cases * n_rules
+            
                 tsk.shape: n_cases * n_out * n_rules
+                
              y_pred.shape: n_cases * n_out
+             
         '''
         # Add a dimension to weights to get the bmm to work:
         
