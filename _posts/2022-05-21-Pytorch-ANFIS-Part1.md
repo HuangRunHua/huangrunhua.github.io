@@ -270,4 +270,114 @@ def __init__(self, mfdefs):
 - mfdefs: 单个隶属函数/隶属函数列表
 - padding
 
+前向传播函数为:
+```python
+def forward(self, x):
+    # 利用隶属函数计算模糊值, 结果进行横向拼装
+    
+    y_pred = torch.cat([mf(x) for mf in self.mfdefs.values()], dim=1)
+    if self.padding > 0:
+        y_pred = torch.cat([y_pred,
+                            torch.zeros(x.shape[0], self.padding)], dim=1)
+    return y_pred
+```
+
+在ANFIS网络中，`FuzzifyVariable`类模型作为输入变量传入`FuzzifyLayer`模糊层内。
+
+#### FuzzifyLayer(torch.nn.Module)模糊层
+`FuzzifyLayer(torch.nn.Module)`类定义了ANFIS的第一层网络。其初始化过程接收两个参数:
+- varmfs: `FuzzifyVariable`类模型/模型列表
+- varnames: 变量名列表
+
+若没有变量名则在初始化过程中自动创建变量名列表作为类成员变量`self.varnames`。
+```python
+def __init__(self, varmfs, varnames=None):
+    super(FuzzifyLayer, self).__init__()
+    if not varnames:
+        self.varnames = ['x{}'.format(i) for i in range(len(varmfs))]
+    else:
+        self.varnames = list(varnames)
+    maxmfs = max([var.num_mfs for var in varmfs])
+    for var in varmfs:
+        var.pad_to(maxmfs)
+    self.varmfs = torch.nn.ModuleDict(zip(self.varnames, varmfs))
+```
+
+第一层最终输出为各个输入变量在各自隶属函数的模糊下的结果，前向传播函数主要将来自`FuzzifyVariable`类的输出结果进行整合堆栈，用于下一层网络使用:
+```python
+def forward(self, x):
+    assert x.shape[1] == self.num_in,\
+        '{} is wrong no. of input values'.format(self.num_in)
+    y_pred = torch.stack([var(x[:, i:i+1])
+                            for i, var in enumerate(self.varmfs.values())],
+                            dim=1)
+    return y_pred
+```
+
+#### AntecedentLayer(torch.nn.Module)类模型(第二层网络)
+类模型`AntecedentLayer(torch.nn.Module)`定义了ANFIS中的第二层网络，用于计算触发强度。该类接收的初始化参数为`FuzzifyVariable`类列表。初始化函数如下:
+```python
+def __init__(self, varlist):
+    super(AntecedentLayer, self).__init__()
+    mf_count = [var.num_mfs for var in varlist]
+    mf_indices = itertools.product(*[range(n) for n in mf_count])
+    self.mf_indices = torch.tensor(list(mf_indices))
+```
+`mf_indices`用于存储触发强度的乘积索引值，例如:
+```python
+Input : arr1 = [1, 2, 3] 
+        arr2 = [5, 6, 7] 
+Output : mf_indices = [(1, 5), (1, 6), (1, 7), (2, 5), (2, 6), (2, 7), (3, 5), (3, 6), (3, 7)] 
+```
+类成员变量`self.mf_indices`是一个存储触发强度的乘积索引值的张量, 例如:
+```python
+invardefs = [
+    ['x0', ['f1', 'f2', 'f3']],
+    ['x1', ['f4', 'f5']],
+]
+
+self.mf_indices = tensor([[0, 0],
+                          [0, 1],
+                          [1, 0],
+                          [1, 1],
+                          [2, 0],
+                          [2, 1]])
+# 其中[0, 0]表示x0的第一个模糊值与x1的第一个模糊值
+```
+
+该类前向传播返回触发强度乘积结果:
+```python
+def forward(self, x):
+    # 重复规则索引以等于批量大小：
+    batch_indices = self.mf_indices.expand((x.shape[0], -1, -1))
+    # 使用索引来填充规则前提
+    ants = torch.gather(x.transpose(1, 2), 1, batch_indices)
+    # ants.shape is n_cases * n_rules * n_in
+    # Last, take the AND (= product) for each rule-antecedent
+    rules = torch.prod(ants, dim=2)
+    return rules
+```
+
+#### WeightedSumLayer(torch.nn.Module)归一化层
+类模型`WeightedSumLayer`定义了第三层归一化层网络，前向传播返回触发强度归一化的结果，该类定义如下:
+```python
+class WeightedSumLayer(torch.nn.Module):
+    '''
+        Sum the TSK for each outvar over rules, weighted by fire strengths.
+        This could/should be layer 5 of the Anfis net.
+        I don't actually use this class, since it's just one line of code.
+    '''
+    def __init__(self):
+        super(WeightedSumLayer, self).__init__()
+
+    def forward(self, weights, tsk):
+        '''
+            weights.shape: n_cases * n_rules
+                tsk.shape: n_cases * n_out * n_rules
+             y_pred.shape: n_cases * n_out
+        '''
+        # Add a dimension to weights to get the bmm to work:
+        y_pred = torch.bmm(tsk, weights.unsqueeze(2))
+        return y_pred.squeeze(2)
+```
 
