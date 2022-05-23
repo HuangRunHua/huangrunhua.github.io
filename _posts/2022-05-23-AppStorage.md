@@ -1,6 +1,6 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
-title:      @AppStorage存取自定义格式的列表
+title:      使用@AppStorage存取自定义格式的列表
 subtitle:   基于RawRepresentable协议
 date:       2022-5-23                # 时间
 author:     Joker Hook                         # 作者
