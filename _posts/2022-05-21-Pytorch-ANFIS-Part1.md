@@ -267,8 +267,8 @@ def __init__(self, mfdefs):
 ```
 
 类成员变量为:
-- mfdefs: 单个隶属函数/隶属函数列表
-- padding
+- `mfdefs`: 单个隶属函数/隶属函数列表
+- `padding`
 
 前向传播函数为:
 ```python
@@ -286,8 +286,8 @@ def forward(self, x):
 
 #### FuzzifyLayer(torch.nn.Module)模糊层
 `FuzzifyLayer(torch.nn.Module)`类定义了ANFIS的第一层网络。其初始化过程接收两个参数:
-- varmfs: `FuzzifyVariable`类模型/模型列表
-- varnames: 变量名列表
+- `varmfs`: `FuzzifyVariable`类模型/模型列表
+- `varnames`: 变量名列表
 
 若没有变量名则在初始化过程中自动创建变量名列表作为类成员变量`self.varnames`。
 ```python
