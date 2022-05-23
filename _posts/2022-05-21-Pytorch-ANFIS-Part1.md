@@ -123,4 +123,65 @@ outvars = ['y0', 'y1', ...]
 model = AnfisNet('Simple classifier', invars, outvars, hybrid=hybrid)
 ```
 
+## 网络层分析(anfis.py)
+该文件下定义了ANFIS网络的层结构。
+
+#### AnfisNet(torch.nn.Module)类模型
+`AnfisNet(torch.nn.Module)`定义了一个完整的自适应模糊推理。其类初始化方法为:
+```python
+def __init__(self, description, invardefs, outvarnames, hybrid=True):
+        super(AnfisNet, self).__init__()
+        self.description = description
+        self.outvarnames = outvarnames
+        self.hybrid = hybrid
+        varnames = [v for v, _ in invardefs]
+        mfdefs = [FuzzifyVariable(mfs) for _, mfs in invardefs]
+        self.num_in = len(invardefs)
+        self.num_rules = np.prod([len(mfs) for _, mfs in invardefs])
+        if self.hybrid:
+            cl = ConsequentLayer(self.num_in, self.num_rules, self.num_out)
+        else:
+            cl = PlainConsequentLayer(self.num_in, self.num_rules, self.num_out)
+        self.layer = torch.nn.ModuleDict(OrderedDict([
+            ('fuzzify', FuzzifyLayer(mfdefs, varnames)),
+            ('rules', AntecedentLayer(mfdefs)),
+            ('consequent', cl),
+            ]))
+```
+类初始化接受的参数一共有四个：
+- `description`: 描述语句, 如'Simple classifier'
+- `invardefs`: 输入变量与隶属函数列表, 如: ```invardefs = [['x0', [GaussMembFunc(), ...]], ...]```
+- `outvarnames`: 网络输出结果, 如: ```outvarsnames = ['y0', 'y1', ...]```
+- `hybrid`: 是否使用混合最小二乘法
+
+`AnfisNet`类网络成员变量定义如下:
+- description: 描述语句
+- outvarnames: 网络输出变量名
+- hybrid: 是否使用混合最小二乘法
+- num_in: 网络输入变量个数
+- num_rules: 触发强度的个数/第二层元素的个数
+- layer: 网络的所有层
+
+初始化阶段将传入的输入变量与隶属函数列表`invardefs`进行处理，设
+```python
+`invardefs` = [
+    ['x0', [mf(), mf(), ...]],
+    ['x1', [mf(), mf(), ...]],
+    ...
+]
+```
+则先将变量名提取出来:
+```python
+varnames = [v for v, _ in invardefs]
+```
+再将隶属函数传入模糊变量类模型内形成列表:
+```ptyhon
+mfdefs = [FuzzifyVariable(mfs) for _, mfs in invardefs]
+```
+网络输入变量名`varnames`与模糊变量类模型列表`mfdefs`作为输入变量传入网络第一层`FuzzifyLayer`与第二层`AntecedentLayer`:
+```python
+FuzzifyLayer(mfdefs, varnames)
+AntecedentLayer(mfdefs)
+```
+
 
