@@ -349,11 +349,15 @@ self.mf_indices = tensor([[0, 0],
 ```python
 def forward(self, x):
     # 重复规则索引以等于批量大小：
+    
     batch_indices = self.mf_indices.expand((x.shape[0], -1, -1))
     # 使用索引来填充规则前提
+    
     ants = torch.gather(x.transpose(1, 2), 1, batch_indices)
     # ants.shape is n_cases * n_rules * n_in
+    
     # Last, take the AND (= product) for each rule-antecedent
+    
     rules = torch.prod(ants, dim=2)
     return rules
 ```
@@ -370,15 +374,20 @@ def fit_coeff(self, x, weights, y_actual):
                 y.shape: n_cases * n_out
     '''
     # Append 1 to each list of input vals, for the constant term:
+    
     x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
     # Shape of weighted_x is n_cases * n_rules * (n_in+1)
+    
     weighted_x = torch.einsum('bp, bq -> bpq', weights, x_plus)
     # Can't have value 0 for weights, or LSE won't work:
+    
     weighted_x[weighted_x == 0] = 1e-12
     # Squash x and y down to 2D matrices for gels:
+    
     weighted_x_2d = weighted_x.view(weighted_x.shape[0], -1)
     y_actual_2d = y_actual.view(y_actual.shape[0], -1)
     # Use gels to do LSE, then pick out the solution rows:
+    
     try:
         coeff_2d, _ = torch.gels(y_actual_2d, weighted_x_2d)
     except RuntimeError as e:
@@ -387,6 +396,7 @@ def fit_coeff(self, x, weights, y_actual):
         raise e
     coeff_2d = coeff_2d[0:weighted_x_2d.shape[1]]
     # Reshape to 3D tensor: divide by rules, n_in+1, then swap last 2 dims
+    
     self.coeff = coeff_2d.view(weights.shape[1], x.shape[1]+1, -1).transpose(1, 2)
     # coeff dim is thus: n_rules * n_out * (n_in+1)
 ```
@@ -400,8 +410,10 @@ def forward(self, x):
                 y.shape: n_cases * n_out * n_rules
     '''
     # Append 1 to each list of input vals, for the constant term:
+    
     x_plus = torch.cat([x, torch.ones(x.shape[0], 1)], dim=1)
     # Need to switch dimansion for the multipy, then switch back:
+    
     y_pred = torch.matmul(self.coeff, x_plus.t())
     return y_pred.transpose(0, 2)  # swaps cases and rules
 ```
@@ -425,6 +437,7 @@ class WeightedSumLayer(torch.nn.Module):
              y_pred.shape: n_cases * n_out
         '''
         # Add a dimension to weights to get the bmm to work:
+        
         y_pred = torch.bmm(tsk, weights.unsqueeze(2))
         return y_pred.squeeze(2)
 ```
