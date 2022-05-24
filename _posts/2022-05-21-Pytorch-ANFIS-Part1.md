@@ -557,3 +557,52 @@ def test_anfis(model, data, show_plots=False):
     if show_plots:
         plotResults(y_actual, y_pred)
 ```
+
+## 网络实战(jang_examples.py)
+文档`jang_examples.py`给出了Jyh-Shing Roger Jang于1993年发表的开创性论文[ANFIS: adaptive-network-based fuzzy inference system](https://ieeexplore.ieee.org/abstract/document/256541)的复现结果。
+
+#### 示例1: 两输入非线性方程的建模
+真实非线性方程定义如下:
+
+$$
+z = sinc(x, y) = \frac{sin(x)}{x} \times \frac{sin(y)}{y}
+$$
+
+该函数的实现过程如下:
+```python
+def sinc(x, y):
+    def s(z):
+        return (1 if z == 0 else np.sin(z) / z)
+    return s(x) * s(y)
+```
+
+训练数据集的生成通过函数`make_sinc_xy`来实现:
+```python
+def make_sinc_xy(batch_size=1024):
+    pts = torch.arange(-10, 11, 2)
+    x = torch.tensor(list(itertools.product(pts, pts)), dtype=dtype)
+    y = torch.tensor([[sinc(*p)] for p in x], dtype=dtype)
+    td = TensorDataset(x, y)
+    return DataLoader(td, batch_size=batch_size, shuffle=True)
+```
+
+函数执行过程中, 中间变量`pts`为tensor，将区间(-10, 10)按照步长为2划分，作为变量的取值范围:
+```python
+pts = tensor([-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10])
+```
+
+由于z函数两个自变量的区间相同，因此`pts`同时代表两个自变量的取值范围。自变量x与y两两组合形成变量对(x, y)作为变量带入函数`sinc(x, y)`内生成网络输出数据，变量对一共121对，通过如下语句生成:
+```python
+>>> x = torch.tensor(list(itertools.product(pts, pts)), dtype=dtype)
+>>> x = tensor([[-10., -10.],
+                [-10.,  -8.],
+                [-10.,  -6.],
+                [-10.,  -4.],
+                [-10.,  -2.],...])
+```
+
+> **注意**
+>
+> 注意程序内的xy与数学公式上的xy的意义不同。
+
+将上述变量区间与代入公式计算后的结果作为输入与输出传入`TensorDataset`并利用`DataLoader`转为可训练的数据类型。
