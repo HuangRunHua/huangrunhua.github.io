@@ -15,6 +15,8 @@ tags:                                #标签
 > **标注**
 >
 > 本文主要分析由[James Power](http://www.cs.nuim.ie/~jpower/)开源于Github上的[anfis-pytorch](https://github.com/jfpower/anfis-pytorch)代码。
+>
+> 关于ANFIS的基础知识参考[浅析自适应网络模糊推理系统(ANFIS)](https://huangrunhua.github.io/2022/05/16/Talk-About-ANFIS/)
 
 ## 代码框架分析
 ANFIS框架主要分为三个文件：
