@@ -15,8 +15,8 @@ tags:                                #标签
 > 
 > 本文主要介绍分析由Jyh-Shing Roger Jang于1993年发表的开创性论文[ANFIS: adaptive-network-based fuzzy inference system](https://ieeexplore.ieee.org/abstract/document/256541)
 
-## 模糊IF-Then准则
-模糊IF-Then准则有以下两种常用的形式：
+## 模糊IF-THEN准则
+模糊IF-THEN准则有以下两种常用的形式：
 - **IF A THEN B**, 其中A与B都是**模糊用词**。例如`If pressure is high, then volume is small`，本例子中关键词`high`与`small`均为模糊的数学概念，可由人为划分界限。
 - **IF A THEN C**, 其中A为模糊用词， C为精确的数学表达式。例如`If velocity is high, then force = 3.14`。
 
@@ -180,6 +180,25 @@ if (x is A2) && (y is B2) {
 ![模糊推理过程](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/ANFIS/3.png)
 其等效模糊网络结构如下：
 ![等效模糊网络结构](https://github.com/HuangRunHua/huangrunhua.github.io/raw/master/img/ANFIS/4.png)
+在等效模糊网络结构中，准则`x is A1`即代表计算给定x的隶属函数后的值:
+
+$$
+x \text { is } A_{1} \Leftrightarrow O^1_i = \mu_{A_{1}}(x)
+$$
+
+同理有
+
+$$
+y \text { is } B_{1} \Leftrightarrow O^1_i = \mu_{B_{1}}(y)
+$$
+
+两者的与(`&`)在集合中表示相乘，因此网络第二层中A1层输出与B1层输出共同输入到一个节点中得到:
+
+$$
+w_1 = \mu_{A_{1}}(x) \times \mu_{B_{1}}(y)
+$$
+
+至此完成`IF`语句的判断过程。`THEN`语句的作用出现在第四层，第四层需要将`THEN`语句之后的表达式同归一化后的触发强度相乘。注意到若x与A1的关联程度不大，则说明x不太有可能属于A1代表的集合，则归一化后的触发强度数值将会较小。
 
 ####  层结构分析
 - **模糊化层（第一层）：** 输入x，y在第一层进行模糊化：
