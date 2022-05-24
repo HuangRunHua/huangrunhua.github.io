@@ -468,3 +468,92 @@ class WeightedSumLayer(torch.nn.Module):
         y_pred = torch.bmm(tsk, weights.unsqueeze(2))
         return y_pred.squeeze(2)
 ```
+
+## 网络训练模块(experimental.py)
+文档`experimental.py`定义了ANFIS训练过程与测试过程，还包括Pytorch官网教程中的的2层线性神经网络。
+
+#### train_anfis_with(model,...)函数
+`train_anfis_with(model,...)`函数给出了ANFIS训练过程的所有细节。该函数接收参数为:
+- `model`: 网络模型 
+- `data`: 训练数据
+- `optimizer`: 优化器的选择
+- `criterion`: 损失函数
+- `epochs`: 迭代次数
+- `show_plots`: 是否展示训练过程图表
+
+网络训练过程具体细节如代码所示:
+```python
+def train_anfis_with(model, data, optimizer, criterion,
+                     epochs=500, show_plots=False):
+    '''
+    
+        Train the given model using the given (x,y) data.
+        
+    '''
+    errors = []  # Keep a list of these for plotting afterwards
+    # optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+    
+    print('### Training for {} epochs, training size = {} cases'.
+          format(epochs, data.dataset.tensors[0].shape[0]))
+    for t in range(epochs):
+        # Process each mini-batch in turn:
+        
+        for x, y_actual in data:
+            y_pred = model(x)
+            # Compute and print loss
+            
+            loss = criterion(y_pred, y_actual)
+            # Zero gradients, perform a backward pass, and update the weights.
+            
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        # Epoch ending, so now fit the coefficients based on all data:
+        
+        x, y_actual = data.dataset.tensors
+        with torch.no_grad():
+            model.fit_coeff(x, y_actual)
+        # Get the error rate for the whole batch:
+        
+        y_pred = model(x)
+        mse, rmse, perc_loss = calc_error(y_pred, y_actual)
+        errors.append(perc_loss)
+        # Print some progress information as the net is trained:
+        
+        if epochs < 30 or t % 10 == 0:
+            print('epoch {:4d}: MSE={:.5f}, RMSE={:.5f} ={:.2f}%'
+                  .format(t, mse, rmse, perc_loss))
+    # End of training, so graph the results:
+    
+    if show_plots:
+        plotErrors(errors)
+        y_actual = data.dataset.tensors[1]
+        y_pred = model(data.dataset.tensors[0])
+        plotResults(y_actual, y_pred)
+```
+
+优化器`optimizer`与损失函数`criterion`定义在`train_anfis(model,...)`内。
+
+#### train_anfis(model,...)函数
+```python
+def train_anfis(model, data, epochs=500, show_plots=False):
+    optimizer = torch.optim.SGD(model.parameters(), lr=1e-4, momentum=0.99)
+    criterion = torch.nn.MSELoss(reduction='sum')
+    train_anfis_with(model, data, optimizer, criterion, epochs, show_plots)
+```
+
+#### test_anfis(model,...)函数
+函数`test_anfis(model,...)`给出了ANFIS测试细节，函数源代码如下:
+```python
+def test_anfis(model, data, show_plots=False):
+    x, y_actual = data.dataset.tensors
+    if show_plots:
+        plot_all_mfs(model, x)
+    print('### Testing for {} cases'.format(x.shape[0]))
+    y_pred = model(x)
+    mse, rmse, perc_loss = calc_error(y_pred, y_actual)
+    print('MS error={:.5f}, RMS error={:.5f}, percentage={:.2f}%'
+          .format(mse, rmse, perc_loss))
+    if show_plots:
+        plotResults(y_actual, y_pred)
+```
