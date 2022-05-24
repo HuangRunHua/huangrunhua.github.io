@@ -491,6 +491,7 @@ def train_anfis_with(model, data, optimizer, criterion,
         
     '''
     errors = []  # Keep a list of these for plotting afterwards
+    
     # optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
     
     print('### Training for {} epochs, training size = {} cases'.
@@ -606,3 +607,22 @@ pts = tensor([-10, -8, -6, -4, -2, 0, 2, 4, 6, 8, 10])
 > 注意程序内的xy与数学公式上的xy的意义不同。
 
 将上述变量区间与代入公式计算后的结果作为输入与输出传入`TensorDataset`并利用`DataLoader`转为可训练的数据类型。
+
+示例1为两输入一输出的过程，该模型定义如下:
+```python
+def ex1_model():
+    invardefs = [
+            ('x0', make_bell_mfs(3.33333, 2, [-10, -3.333333, 3.333333, 10])),
+            ('x1', make_bell_mfs(3.33333, 2, [-10, -3.333333, 3.333333, 10])),
+            ]
+    outvars = ['y0']
+    anf = anfis.AnfisNet('Jang\'s example 1', invardefs, outvars)
+    return anf
+```
+
+主函数部分的调用过程如下:
+```python
+model = ex1_model()
+train_data = make_sinc_xy()
+train_anfis(model, train_data, 20, show_plots)
+```
