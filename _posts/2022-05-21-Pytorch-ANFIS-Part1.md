@@ -564,7 +564,9 @@ def test_anfis(model, data, show_plots=False):
 ## 网络实战(jang_examples.py)
 文档`jang_examples.py`给出了Jyh-Shing Roger Jang于1993年发表的开创性论文[ANFIS: adaptive-network-based fuzzy inference system](https://ieeexplore.ieee.org/abstract/document/256541)的复现结果。
 
-#### 示例1: 两输入非线性方程的建模
+本文仅分析第一个示例。
+
+#### 示例: 两输入非线性方程的建模
 真实非线性方程定义如下:
 
 $$
