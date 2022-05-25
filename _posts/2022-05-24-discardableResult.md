@@ -33,9 +33,7 @@ sum(a: 1, b: 2) // Result of call to 'sum(a:b:)' is unused
 
 这是一个很好的警告，因为当您调用返回结果的方法时，您不太可能执行该方法然后丢弃结果。此警告有助于我们捕获因意外遗漏消耗结果的代码而导致的错误。
 
-`@discardableResult`属性可用于抑制“结果未使用”警告。
-
-将`@discardableResult`应用于这样的方法可以删除该警告：
+`@discardableResult`属性可用于抑制“结果未使用”警告:
 ```swift
 @discardableResult 
 func sum(a: Int, b: Int) -> Int {
