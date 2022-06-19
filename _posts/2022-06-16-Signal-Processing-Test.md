@@ -44,6 +44,7 @@ tags:                                #标签
 1. **Burg最大熵谱估计与AR谱估计等价条件**
 
    在满足如下约束条件的情况下，可推导出最大熵功率谱密度等于AR功率谱密度。（自相关函数：$\hat{R}_{x}(m)$ ，功率谱密度：$P(\omega)$ ）
+   
    $$
    \hat{R}_{x}(m)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} P(\omega) \mathrm{e}^{\mathrm{j} \omega m} \mathrm{~d} \omega, \quad m=0, \pm 1, \cdots, \pm p
    $$
@@ -53,10 +54,13 @@ tags:                                #标签
 ​        在满足如下两个约束条件的情况下，可推导出最大熵功率谱密度等于ARMA功率谱密度。
 
 ​        **自相关函数匹配**
+​        
 $$
 \hat{R}_{x}(m)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} P(\omega) \mathrm{e}^{\mathrm{j} \omega m} \mathrm{~d} \omega, \quad m=0, \pm 1, \cdots, \pm M
 $$
+
 ​        **倒谱匹配**
+​        
 $$
 \hat{c}_{x}(l)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} \ln P(\omega) \mathrm{e}^{\mathrm{j} \omega l} \mathrm{~d} \omega, \quad l=\pm 1, \cdots, \pm N
 $$
@@ -86,16 +90,19 @@ $$
  **$\omega$ 域设计算法**
 
 1. 对 $P_{yy}(\omega)$ 进行谱分解：
+
    $$
    P_{y y}(\omega)=A_{y y}^{+}(\omega) A_{y y}^{-}(\omega)
    $$
 
 2. 计算如下式子：
+
    $$
    \frac{P_{s y}(\omega)}{A_{y y}^{-}(\omega)}=B^{+}(\omega)+B^{-}(\omega)
    $$
 
 3. 计算传递函数 $H_{opt}(\omega)$:
+
    $$
    H_{\mathrm{opt}}(\omega)=\frac{B^{+}(\omega)}{A_{y y}^{+}(\omega)}
    $$
@@ -103,16 +110,19 @@ $$
 **$z$ 域设计算法**
 
 1. 对 $P_{yy}(z)$ 进行谱分解：
+
    $$
    P_{y y}(z)=A_{y y}^{+}(z) A_{y y}^{-}(z)
    $$
 
 2. 计算如下式子：
+
    $$
    \frac{P_{s y}(z)}{A_{y y}^{-}(z)}=B^{+}(z)+B^{-}(z)
    $$
 
 3. 计算传递函数 $H_{opt}(z)$：
+
    $$
    H_{\mathrm{opt}}(z)=\frac{B^{+}(z)}{A_{y y}^{+}(z)}
    $$
