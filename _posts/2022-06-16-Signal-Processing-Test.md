@@ -53,13 +53,13 @@ tags:                                #标签
 
 ​   在满足如下两个约束条件的情况下，可推导出最大熵功率谱密度等于ARMA功率谱密度。
 
-​   **自相关函数匹配**
+​   - **自相关函数匹配**
 ​        
     $$
     \hat{R}_{x}(m)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} P(\omega) \mathrm{e}^{\mathrm{j} \omega m} \mathrm{~d} \omega, \quad m=0, \pm 1, \cdots, \pm M
     $$
 
-​   **倒谱匹配**
+​   - **倒谱匹配**
 ​        
     $$
     \hat{c}_{x}(l)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} \ln P(\omega) \mathrm{e}^{\mathrm{j} \omega l} \mathrm{~d} \omega, \quad l=\pm 1, \cdots, \pm N
