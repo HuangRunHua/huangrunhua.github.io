@@ -1,145 +1,53 @@
 ---
 layout:     post                       # 使用的布局（不需要改）
-title:      现代信号处理提纲
-subtitle:   Signal Processing
+title:      Swift 中的 Assertions 与 Preconditions
+subtitle:   错误预处理的两种方法
 date:       2022-6-16                # 时间
 author:     Joker Hook                         # 作者
 header-img: img/7.jpg     #这篇文章标题背景图片
 catalog: true                         # 是否归档
 tags:                                #标签
-    - signal processing
+    - swift
+    - error handle
 ---
 
-# 现代信号处理
+# Swift 中的 Assertions 与 Preconditions
+`Swift` 为开发人员提供了两种错误预处理的解决方案：`assert(::file:line:)` 与 `precondition(::file:line:)`。两种解决方案的不同点在于函数 `assert(::file:line:)` 只会在 debug 模式下诊断错误，而函数 `precondition(::file:line:)` 可以在任意模式下诊断错误。
 
-### 信号的定义及分类
+## 使用 Assertions 进行调试
 
-1. 定义：信号是信息的载体。在数学上，信号用一组变量值表示。若 $\{s(t)\}$ 是一实数或复数序列，则称该序列为信号。
-2. 分类：
-   - **连续时间信号**：当时间定义在连续变量区间时，序列 $\{s(t)\}$ 称为连续时间信号；
-   - **离散时间信号**：若信号取值的时间为整数，则序列 $\{s(t)\}$ 称为离散时间信号；
-   - **确定性信号**：若序列 $\{s(t)\}$ 在某个时刻的取值不是随机的，而是服从某种固定的函数关系，则称其为确定性信号；
-   - **随机信号**：若序列 $\{s(t)\}$ 在某个时刻的取值是随机变量，则称其为随机信号。
+通过从 `Swift` 标准库调用  `assert(_:_:file:line:)` 函数来编写断言。可以将此函数传递一个计算为true或false的表达式，如果条件的结果为false，则将显示一条消息。例如：
+```swift
+let age = -3
+assert(age >= 0, "A person's age can't be less than zero.")
+// This assertion fails because -3 isn't >= 0.
+```
 
-### 随机信号的特点
+`Swift`允许省略断言消息——例如，当它只是作为散文重复条件时。
+```swift
+assert(age >= 0)
+```
 
-1. 随机信号在任何时间的取值都是不能先验确定的随机变量；
-2. 虽然随机信号取值不能先验确定，但这些取值却服从某种统计规律。换言之，随机信号或过程可以用概率分布特性（简称统计性能）统计地描述。
+如果代码已经检查了条件，则使用 `assertionFailure(_:file:line:)` 函数来指示断言失败。例如：
+```swift
+if age > 10 {
+    print("You can ride the roller-coaster or the ferris wheel.")
+} else if age >= 0 {
+    print("You can ride the ferris wheel.")
+} else {
+    assertionFailure("A person's age can't be less than zero.")
+}
+```
 
-### $n$ 阶平稳、广义平稳、严格平稳和非平稳之间的关系
+## 强制执行先決条件
 
-1. 广义平稳是 $n=2$ 时候的 $n$ 阶平稳；
-2. 严格平稳一定是广义平稳，但广义平稳不一定是严格平稳；
-3. 由于不是广义平稳的随机过程不可能是 $n > 2$ 阶平稳和严格平稳的，因此不具有广义平稳性的随机信号统称为非平稳信号；
+通过调用 `precondition(_:_:file:line:)` 函数编写先决条件。
+```swift
+// In the implementation of a subscript...
+precondition(index > 0, "Index must be greater than zero.")
+```
 
-### 功率谱估计方法
-
-1. **ARMA 谱估计**：是一种以信号的差分模型为基础的现代谱估计；
-2. **Burg 最大熵谱估计**：是来源于信息论的现代谱估计，它在不同的约束条件下，分别与 AR谱估计和 ARMA 谱估计等价；
-3. **Pisarenko 谐波分解**：是一种以谐波信号为特定对象的谱估计方法，它将谐波频率的估计转化为信号相关矩阵的特征值分解；
-4. **扩展 Prony 方法**：是一种利用复谐波模型拟合复信号的方法。
-
-### Burg 最大熵谱估计与 AR 谱估计和 ARMA 谱估计等价问题
-
-1. **Burg最大熵谱估计与AR谱估计等价条件**
-
-   在满足如下约束条件的情况下，可推导出最大熵功率谱密度等于AR功率谱密度。（自相关函数：$\hat{R}_{x}(m)$ ，功率谱密度：$P(\omega)$ ）
-   
-   $$
-   \hat{R}_{x}(m)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} P(\omega) \mathrm{e}^{\mathrm{j} \omega m} \mathrm{~d} \omega, \quad m=0, \pm 1, \cdots, \pm p
-   $$
-
-2. **Burg最大熵谱估计与ARMA谱估计等价条件**
-
-​   在满足如下两个约束条件的情况下，可推导出最大熵功率谱密度等于ARMA功率谱密度。
-
-​   **自相关函数匹配**
-​   
-    $$
-    \hat{R}_{x}(m)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} P(\omega) \mathrm{e}^{\mathrm{j} \omega m} \mathrm{~d} \omega, \quad m=0, \pm 1, \cdots, \pm M
-    $$
-    
-​   **倒谱匹配**
-​     
-    $$
-    \hat{c}_{x}(l)=\frac{1}{2 \pi} \int_{-\pi}^{\pi} \ln P(\omega) \mathrm{e}^{\mathrm{j} \omega l} \mathrm{~d} \omega, \quad l=\pm 1, \cdots, \pm N
-    $$
-    
-### 滤波器的作用及分类
-
-- **线性滤波器**：滤波器输出是输入的线性函数；**非线性滤波器**
-
-- **无限冲激响应滤波器**：滤波器冲激响应为无穷长；**有限冲激响应滤波器**
-
-- **时域滤波器**：滤波器在时间域实现；**频域滤波器**；**空域滤波器**
-
-- **匹配滤波器**：滤波器的输出信噪比最大；
-
-- **Wiener滤波器**：在最小均方误差的准则下最优；
-
-- **Kalman滤波器**：基于状态空间模型的线性最优滤波器；
-
-### 连续时间的滤波器有两种最优设计准则
-
-1. 使滤波器输出达到最大信噪比；
-
-2. 使输出滤波器的均方估计误差最小。
-
-### 因果Wiener滤波器的设计算法步骤
-
- **$\omega$ 域设计算法**
-
-1. 对 $P_{yy}(\omega)$ 进行谱分解：
-
-   $$
-   P_{y y}(\omega)=A_{y y}^{+}(\omega) A_{y y}^{-}(\omega)
-   $$
-
-2. 计算如下式子：
-
-   $$
-   \frac{P_{s y}(\omega)}{A_{y y}^{-}(\omega)}=B^{+}(\omega)+B^{-}(\omega)
-   $$
-
-3. 计算传递函数 $H_{opt}(\omega)$:
-
-   $$
-   H_{\mathrm{opt}}(\omega)=\frac{B^{+}(\omega)}{A_{y y}^{+}(\omega)}
-   $$
-
-**$z$ 域设计算法**
-
-1. 对 $P_{yy}(z)$ 进行谱分解：
-
-   $$
-   P_{y y}(z)=A_{y y}^{+}(z) A_{y y}^{-}(z)
-   $$
-
-2. 计算如下式子：
-
-   $$
-   \frac{P_{s y}(z)}{A_{y y}^{-}(z)}=B^{+}(z)+B^{-}(z)
-   $$
-
-3. 计算传递函数 $H_{opt}(z)$：
-
-   $$
-   H_{\mathrm{opt}}(z)=\frac{B^{+}(z)}{A_{y y}^{+}(z)}
-   $$
-
-### Kalman滤波器的特点
-
-1. 其数学公式用状态空间概念描述；
-2. 它的解是递推计算的，即与 Wiener 滤波器不同，Kalman 滤波器是一种自适应滤波器。
-
-### 阵列信号处理的主要问题
-
-1. 波束形成：使阵列方向图的主瓣指向所需的方向；
-2. 零点形成：使天线的零点对准所有的干扰方向；
-3. 波达方向估计：对空间信号的波达方向进行超分辨估计。
-
-
-
+还可以调用 `preconditionFailure(_:file:line:)` 函数来指示发生了故障——例如，如果采用了交换机的默认情况，但所有有效的输入数据都应该由交换机的其他情况之一处理。
 
 
 
