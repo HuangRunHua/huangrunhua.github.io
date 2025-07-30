@@ -68,10 +68,7 @@ $$
 即直积 $\mathbf{u}\otimes\mathbf{v}$ 可以看成一个算符，任意的矢量 $\mathbf{w}$ 与该算符作用后会变成沿着 $\mathbf{u}$ 方向的另一个矢量。可以很容易证明该算符是线性的，因此直积构成一个张量。
 
 > **Remark**  
-> 注意到直积 $\mathbf{u}\otimes\mathbf{u}$ 算符实际上就是映射张量，即：
-> $$
-> \text{Proj}_{\mathbf{u}} = \mathbf{u}\otimes\mathbf{u}
-> $$
+> 注意到直积 $\mathbf{u}\otimes\mathbf{u}$ 算符实际上就是映射张量，即：$\text{Proj}_{\mathbf{u}} = \mathbf{u}\otimes\mathbf{u}$
 
 > **Remark**  
 > 由两个向量 $\mathbf{u}$ 和 $\mathbf{v}$ 的直积 $\mathbf{u} \otimes \mathbf{v}$ 所构成的张量称为**双向量积张量（dyads）**。
@@ -98,10 +95,7 @@ $$
 $$
 
 > **Remark**  
-> 由于笛卡尔坐标系的基底是相互垂直的，因此将张量分量与基底求点积可以得到对应的系数，如：
-> $$
-> T_{yz} = \mathbf{e}_y \cdot \mathbf{T}(\mathbf{e}_z)
-> $$
+> 由于笛卡尔坐标系的基底是相互垂直的，因此将张量分量与基底求点积可以得到对应的系数，如：$$T_{yz} = \mathbf{e}_y \cdot \mathbf{T}(\mathbf{e}_z)$$
 
 > **Remark**  
 > 显然，二阶张量在某一基底下的坐标表现是一个矩阵。
@@ -159,10 +153,7 @@ $$
 若张量 $\mathbf{T}$ 满足对任意非零矢量 $\mathbf{v}$ 都有 $\mathbf{T}(\mathbf{v}) = \mathbf{0}$，则称张量 $\mathbf{T}$ 为**奇异张量**。
 
 > **Remark**  
-> 任意一个二阶张量均可以写成一个对称张量与斜对称张量的和：
-> $$
-> \mathbf{T} = \frac{1}{2}(\mathbf{T} + \mathbf{T}^T) + \frac{1}{2}(\mathbf{T} - \mathbf{T}^T)
-> $$
+> 任意一个二阶张量均可以写成一个对称张量与斜对称张量的和：$$\mathbf{T} = \frac{1}{2}(\mathbf{T} + \mathbf{T}^T) + \frac{1}{2}(\mathbf{T} - \mathbf{T}^T)$$
 
 ## 二阶张量的笛卡尔基底
 
@@ -214,4 +205,8 @@ $$
 \end{aligned}
 $$
 
-可以简单的证明，这是唯一的基底表示形式。集合 $\left\{\mathbf{e}_x\otimes\mathbf{e}_x, \mathbf{e}_x\otimes\mathbf{e}_y, \ldots \right\}$ 称为笛卡尔坐标系下二阶张量的基底集合，即任意一个二阶张量都可以用这9个基底来表示。
+可以简单的证明，这是唯一的基底表示形式。集合 
+$$
+\left\{\mathbf{e}_x\otimes\mathbf{e}_x, \mathbf{e}_x\otimes\mathbf{e}_y, \ldots \right\}
+$$ 
+称为笛卡尔坐标系下二阶张量的基底集合，即任意一个二阶张量都可以用这9个基底来表示。
