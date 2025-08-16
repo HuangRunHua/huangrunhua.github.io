@@ -15,13 +15,13 @@ tags:
 > 注：本文笔记基于Simmonds《A Brief on Tensor Analysis》（第二版），仅用于学习与交流目的。
 
 ## 广义基底
-设$\{\mathbf{g}_1, \mathbf{g}_2, \mathbf{g}_3\}$是一组固定的、不共面的向量，则任意矢量 $\mathbf{v}$ 都可以唯一地表示为：
+设 $\{\mathbf{g}_1, \mathbf{g}_2, \mathbf{g}_3\}$ 是一组固定的、不共面的向量，则任意矢量 $\mathbf{v}$ 都可以唯一地表示为：
 
 $$
 \mathbf{v} = v^1\mathbf{g}_1 + v^2\mathbf{g}_2 + v^3\mathbf{g}_3 = \sum_{i=1}^{3}v^i\mathbf{g}_i
 $$
 
-通常称集合$\{\mathbf{g}_1, \mathbf{g}_2, \mathbf{g}_3\}$为基底，集合内的元素称为基矢量。
+通常称集合 $\{\mathbf{g}_1, \mathbf{g}_2, \mathbf{g}_3\}$ 为基底，集合内的元素称为基矢量。
 
 > 显然，一个基底集合不必满足正交性，也不要求每个基底向量都是单位矢量。只要由矢量 $\{\mathbf{g}_1, \mathbf{g}_2, \ldots\}$ 构成的矩阵 $\mathbf{G} = [\mathbf{g}_1, \mathbf{g}_2, \ldots]$ 的行列式不为零，即 $\det\mathbf{G} \neq 0$，该集合就可以作为一组有效的基底。
 
@@ -33,7 +33,7 @@ $$
 $$
 
 ## 广义基底下的点积
-设三维矢量$\mathbf{v} = v^i\mathbf{g}_i$ 与矢量 $\mathbf{u} = u^i\mathbf{g}_i$，两个矢量的点积为
+设三维矢量 $\mathbf{v} = v^i\mathbf{g}_i$ 与矢量 $\mathbf{u} = u^i\mathbf{g}_i$，两个矢量的点积为
 
 $$
 \begin{align*}
@@ -44,11 +44,11 @@ $$
 \end{align*}
 $$
 
-注意到由于广义基底不是互相垂直的，因此$i \neq j$的项无法消去。对于两个三维的矢量，点积结果一共有$3^2 = 9$项，实际上可以通过引入一组倒易基底矢量来化简点积表达式。
+注意到由于广义基底不是互相垂直的，因此 $i \neq j$ 的项无法消去。对于两个三维的矢量，点积结果一共有 $3^2 = 9$ 项，实际上可以通过引入一组倒易基底矢量来化简点积表达式。
 
 ## 倒易基底矢量
 ### 倒易基底矢量
-用一组新的基底$\{\mathbf{g}^1, \mathbf{g}^2, \mathbf{g}^3\}$来表示矢量$\mathbf{v} = v_j\mathbf{g}^j$，此时点积求和可以写成
+用一组新的基底 $\{\mathbf{g}^1, \mathbf{g}^2, \mathbf{g}^3\}$ 来表示矢量 $\mathbf{v} = v_j\mathbf{g}^j$，此时点积求和可以写成
 
 $$
 \mathbf{u} \cdot \mathbf{v} = u^i v_j\mathbf{g}_i\cdot\mathbf{g}^j
@@ -75,10 +75,10 @@ $$
 \end{align*}
 $$
 
-称集合$\{\mathbf{g}^1, \mathbf{g}^2, \ldots\}$为倒易基底集合，其子元素为倒易基底矢量。
+称集合 $\{\mathbf{g}^1, \mathbf{g}^2, \ldots\}$ 为倒易基底集合，其子元素为倒易基底矢量。
 
 ### 倒易基底矢量的求解
-从基底$\{\mathbf{g}_1, \mathbf{g}_2, \ldots\}$的合法性可知基底构成的矩阵$\mathbf{G} = [\mathbf{g}_1\ \mathbf{g}_2\ \ldots]$ 的行列式不为零，即 $\det\mathbf{G} \neq 0$。记倒易基底为 $\{\mathbf{g}^1, \mathbf{g}^2, \ldots, \mathbf{g}^n\}$，将倒易基底按列排列为矩阵 
+从基底 $\{\mathbf{g}_1, \mathbf{g}_2, \ldots\}$ 的合法性可知基底构成的矩阵 $\mathbf{G} = [\mathbf{g}_1\ \mathbf{g}_2\ \ldots]$ 的行列式不为零，即 $\det\mathbf{G} \neq 0$。记倒易基底为 $\{\mathbf{g}^1, \mathbf{g}^2, \ldots, \mathbf{g}^n\}$，将倒易基底按列排列为矩阵 
 
 $$
 \mathbf{G}^* = \begin{bmatrix}
@@ -104,7 +104,7 @@ $$
 }
 $$
 
-这表明，若已知基底$\{\mathbf{g}_1, \mathbf{g}_2, \ldots\}$，只需求出$\mathbf{G}^{-1}$便可得到倒易基底矢量。
+这表明，若已知基底 $\{\mathbf{g}_1, \mathbf{g}_2, \ldots\}$，只需求出 $\mathbf{G}^{-1}$ 便可得到倒易基底矢量。
 
 > **例题：** 已知基底  
 > $$
@@ -136,13 +136,13 @@ $$
 > $$ 
 
 ## 矢量的协变分量与逆变分量
-从前面的分析可知道，一个矢量$\mathbf{v}$可以写成基底矢量与倒易基底矢量两种形式，即
+从前面的分析可知道，一个矢量 $\mathbf{v}$ 可以写成基底矢量与倒易基底矢量两种形式，即
 
 $$
 \mathbf{v} = v^i\mathbf{g}_i = v_j\mathbf{g}^j
 $$
 
-称$v^i$为矢量$\mathbf{v}$的逆变分量，$v_i$为矢量$\mathbf{v}$的协变分量。
+称 $v^i$ 为矢量 $\mathbf{v}$ 的逆变分量，$v_i$ 为矢量 $\mathbf{v}$ 的协变分量。
 
 > 注意到$\mathbf{v}\cdot\mathbf{g}_i= (v_i\mathbf{g}^i)\cdot\mathbf{g}_i = v_i$，因此有$v_i = \mathbf{v}\cdot\mathbf{g}_i$。同理有$v^i = \mathbf{v}\cdot\mathbf{g}^i$
 
@@ -214,7 +214,7 @@ $$
 三维空间中，符号 $\epsilon_{ijk}$ 的每个下标均取值于 ${1,2,3}$，因此一共有 $3^3 = 27$ 个分量。称由这27个分量所组成的张量称为置换张量，记为 $\mathbf{P}$。
 
 ### 置换张量协变分量的性质
-为方便分析，设$\mathbf{g}_{i} = (\mathbf{g}_{ix},\mathbf{g}_{iy},\mathbf{g}_{iz})$，$\mathbf{g}_{j} = (\mathbf{g}_{jx},\mathbf{g}_{jy},\mathbf{g}_{jz})$，$\mathbf{g}_{k} = (\mathbf{g}_{kx},\mathbf{g}_{ky},\mathbf{g}_{kz})$，则
+为方便分析，设 $\mathbf{g}_{i} = (\mathbf{g}_{ix},\mathbf{g}_{iy},\mathbf{g}_{iz})$，$\mathbf{g}_{j} = (\mathbf{g}_{jx},\mathbf{g}_{jy},\mathbf{g}_{jz})$，$\mathbf{g}_{k} = (\mathbf{g}_{kx},\mathbf{g}_{ky},\mathbf{g}_{kz})$，则
 
 $$
     \epsilon_{ijk} = (\mathbf{g}_i \times \mathbf{g}_j)\cdot \mathbf{g}_k = 
@@ -227,7 +227,7 @@ $$
     \right|
 $$
 
-注意到如果下标$ijk$中任意两个值相同，那么$\epsilon_{ijk} = 0$。又注意到混合积的性质有
+注意到如果下标 $ijk$ 中任意两个值相同，那么$\epsilon_{ijk} = 0$。又注意到混合积的性质有
 
 $$
 \epsilon_{jik} = (\mathbf{g}_j \times \mathbf{g}_i)\cdot \mathbf{g}_k = -\epsilon_{ijk},\ \ldots
@@ -282,7 +282,7 @@ $$
 \end{equation}
 $$
 
-将协变基底 \(\mathbf{g}_i, \mathbf{g}_j, \mathbf{g}_k\) 的三个向量视为列向量并组成矩阵，则有
+将协变基底 $\(\mathbf{g}_i, \mathbf{g}_j, \mathbf{g}_k\)$ 的三个向量视为列向量并组成矩阵，则有
 
 $$
     \epsilon_{ijk} = (\mathbf{g}_i \times \mathbf{g}_j)\cdot \mathbf{g}_k = 
@@ -399,7 +399,7 @@ $$
 \end{equation}
 $$
 
-进一步的，若在推导过程中定义$\mathbf{T}_j = (T_{j})^i\mathbf{g}_i = T^{i}_{·j}\mathbf{g}_i$，则可得到
+进一步的，若在推导过程中定义 $\mathbf{T}_j = (T_{j})^i\mathbf{g}_i = T^{i}_{·j}\mathbf{g}_i$，则可得到
 
 $$
 \begin{equation}
@@ -407,7 +407,7 @@ $$
 \end{equation}
 $$
 
-同理，若定义$\mathbf{T}^j = (T^{j})_i\mathbf{g}^i = T^{·j}_{i}\mathbf{g}^i$，则可得到
+同理，若定义 $\mathbf{T}^j = (T^{j})_i\mathbf{g}^i = T^{·j}_{i}\mathbf{g}^i$，则可得到
 
 $$
 \begin{equation}
@@ -415,16 +415,16 @@ $$
 \end{equation}
 $$
 
-称$T^{·j}_{i}$与$T^{i}_{·j}$是二阶张量$\mathbf{T}$的混合分量。
+称 $T^{·j}_{i}$与$T^{i}_{·j}$ 是二阶张量 $\mathbf{T}$ 的混合分量。
 
 ### 对称张量分量之间的关系
-若二阶张量$\mathbf{T}$是对称张量，即$\mathbf{T} = \mathbf{T}^T$，则从矩阵计算角度有
+若二阶张量 $\mathbf{T}$ 是对称张量，即 $\mathbf{T} = \mathbf{T}^T$，则从矩阵计算角度有
 
 $$
 T_{ij} = \mathbf{g}^T_i\mathbf{T}\mathbf{g}_j = (\mathbf{g}^T_j \mathbf{T}^T\mathbf{g}_i)^T = (\mathbf{g}^T_j \mathbf{T}\mathbf{g}_i)^T = \mathbf{g}^T_j \mathbf{T}\mathbf{g}_i = T_{ji}
 $$
 
-同理可得到$T^{ij} = T^{ji}$与$T^{·i}_j = T^{i}_{·j}$
+同理可得到 $T^{ij} = T^{ji}$与$T^{·i}_j = T^{i}_{·j}$。
 
 ## 基底的变换
 在给定的参考系中，向量与张量本身并不“知晓”我们选择用何种基底来表示它们。换句话说，它们是**几何不变量**。在进行基底变换时，发生改变的只是它们的分量，而几何对象本身保持不变。张量分析的一个主要目标，就是在已知基底变换的前提下，提供一种从原分量计算新分量的通用方法。
@@ -437,7 +437,7 @@ $$
 \tilde{\mathbf{g}}_3 = \cdots
 $$
 
-可以证明最终采用新基底后，矢量$\mathbf{v}$的新分量为
+可以证明最终采用新基底后，矢量 $\mathbf{v}$ 的新分量为
 
 $$
 \begin{equation}
