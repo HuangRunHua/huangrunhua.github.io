@@ -3,7 +3,6 @@
 
 {% include head.html %}
 
-<!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
     {% include nav.html %}
@@ -12,22 +11,30 @@
 
     {% include footer.html %}
 
-
 <!-- Image to hack wechat -->
 <img src="/img/apple-touch-icon.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-<!-- MathJax 配置 -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true
-    }
-  });
+
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-6iZoXo2l0bB/m6B9mVxQm/zxO4yFhBJfzT+2xn8QuZoKqj6+9V/ylP8vE2L9cQpp" crossorigin="anonymous">
+
+<!-- KaTeX JS -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-7p4N26l0i0Lxq+OMI0v6TTfF9bZbOQw3X8e6IqTjIbH7j3czw5d0F7jQW4zVnUzP" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQq54aXHi9JkZBepc2mT6yYyDSpu3wC1mCZx6B7R0U+5kD6m6oJt8P8I+J1" crossorigin="anonymous"></script>
+
+<!-- KaTeX 自动渲染配置 -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+    });
+});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML" async></script>
 
 </body>
-
 </html>
