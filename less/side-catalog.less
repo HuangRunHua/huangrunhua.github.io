@@ -7,7 +7,13 @@
 .side-catalog {
     &.fixed{
         position: fixed;
-        top: -21px;
+        top: 56px;
+        max-height: calc(100vh - 72px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding-bottom: 24px;
     }
     &.fold{
         .catalog-toggle::before{
@@ -24,8 +30,7 @@
         bottom: 1px;
     }
     display: block;
-    overflow: auto;
-    height: 100%;
+    overflow: visible;
     padding-bottom: 40px;
     width: 195px;
     .catalog-body{
