@@ -79,7 +79,7 @@ $$
 
 
 $$
-L(\varepsilon) = a \varepsilon^2, \quad L(\varepsilon) = a |\varepsilon| ,
+L(\varepsilon) = a \varepsilon^2, \quad L(\varepsilon) = a \lvert\varepsilon\rvert ,
 $$
 
 
@@ -133,7 +133,7 @@ $$
 
 
 $$
-x_1^*(t_1|t_n) = E\left[x_1(t_1)\big| y(t_0), \ldots, y(t_n)\right]
+x_1^*(t_1\mid t_n) = E\left[x_1(t_1)\big| y(t_0), \ldots, y(t_n)\right]
 $$
 
 
@@ -357,7 +357,7 @@ $$
 $$
 
 
-设过程噪声$\mathbf{u}$是均值为$\mathbf{0}$的高斯噪声，给定观测数据$\mathbf{y}(t_0),\ldots,\mathbf{y}(t)$，我们希望找到$t$时刻$\mathbf{x}(t)$的最优估计值$\mathbf{x}^*(t|t)$使得估计误差的最小均方值达到最小。
+设过程噪声$\mathbf{u}$是均值为$\mathbf{0}$的高斯噪声，给定观测数据$\mathbf{y}(t_0),\ldots,\mathbf{y}(t)$，我们希望找到$t$时刻$\mathbf{x}(t)$的最优估计值$\mathbf{x}^*(t\mid t)$使得估计误差的最小均方值达到最小。
 
 
 ### 状态预测方程
@@ -369,13 +369,13 @@ $$
 $$
 \begin{array}{rl}
     \mathcal{Y}(t) &  \text{观测值} \mathbf{y}(t_0),\ldots,\mathbf{y}(t) \text{构成的向量空间}   \\
-    \widetilde{\mathbf{y}}(t|t-1)    & \mathbf{y}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的垂直部分} \\
-    \bar{\mathbf{y}}(t|t-1)    & \mathbf{y}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的正交投影}  \\
-    \mathcal{Z}(t) &  \text{向量} \widetilde{\mathbf{y}}(t|t-1) \text{单独构成的向量空间}   \\
-    \bar{\mathbf{x}}(t|t-1) & \mathbf{x}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的正交投影}\\
-    \widetilde{\mathbf{x}}(t|t)    & \mathbf{x}(t) \text{在}\mathcal{Y}(t) \text{空间上的垂直部分} \\
-    \mathbf{x}^*(t|t-1) & \text{已知观测值}y(t_0),\ldots, y(t-1)\text{条件下}t-1 \text{时刻的最优估计值，即为}\bar{\mathbf{x}}(t|t-1) \\
-    \mathbf{x}^*(t|t) & \text{已知观测值}y(t_0),\ldots, y(t)\text{条件下}t \text{时刻的最优估计值，即为} \bar{\mathbf{x}}(t|t)
+    \widetilde{\mathbf{y}}(t\mid t-1)    & \mathbf{y}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的垂直部分} \\
+    \bar{\mathbf{y}}(t\mid t-1)    & \mathbf{y}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的正交投影}  \\
+    \mathcal{Z}(t) &  \text{向量} \widetilde{\mathbf{y}}(t\mid t-1) \text{单独构成的向量空间}   \\
+    \bar{\mathbf{x}}(t\mid t-1) & \mathbf{x}(t) \text{在}\mathcal{Y}(t-1) \text{空间上的正交投影}\\
+    \widetilde{\mathbf{x}}(t\mid t)    & \mathbf{x}(t) \text{在}\mathcal{Y}(t) \text{空间上的垂直部分} \\
+    \mathbf{x}^*(t\mid t-1) & \text{已知观测值}y(t_0),\ldots, y(t-1)\text{条件下}t-1 \text{时刻的最优估计值，即为}\bar{\mathbf{x}}(t\mid t-1) \\
+    \mathbf{x}^*(t\mid t) & \text{已知观测值}y(t_0),\ldots, y(t)\text{条件下}t \text{时刻的最优估计值，即为} \bar{\mathbf{x}}(t\mid t)
 \end{array}
 $$
 
@@ -384,7 +384,7 @@ $$
 
 
 $$
-\mathbf{x}^*(t|t-1) = \bar{\mathbf{x}}(t|t-1) = \hat{E}\left[\mathbf{x}(t)|\mathcal{Y}(t-1)\right]
+\mathbf{x}^*(t\mid t-1) = \bar{\mathbf{x}}(t\mid t-1) = \hat{E}\left[\mathbf{x}(t)\mid\mathcal{Y}(t-1)\right]
 $$
 
 
@@ -393,11 +393,11 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{x}^*(t|t-1) &= \hat{E}\left[\mathbf{\Phi}(t-1)\mathbf{x}(t-1) + \mathbf{u}(t-1)|\mathcal{Y}(t-1)\right] \\
-    &= \hat{E}\left[\mathbf{\Phi}(t-1)\mathbf{x}(t-1)|\mathcal{Y}(t-1)\right] + \hat{E}\left[\mathbf{u}(t-1)|\mathcal{Y}(t-1)\right]\\
-    &= \mathbf{\Phi}(t-1)\hat{E}\left[\mathbf{x}(t-1)|\mathcal{Y}(t-1)\right]\ \text{(过程噪声均值为0)}\\
-    &= \mathbf{\Phi}(t-1)\bar{\mathbf{x}}(t-1|t-1) \\
-    &= \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1|t-1)
+\mathbf{x}^*(t\mid t-1) &= \hat{E}\left[\mathbf{\Phi}(t-1)\mathbf{x}(t-1) + \mathbf{u}(t-1)\mid\mathcal{Y}(t-1)\right] \\
+    &= \hat{E}\left[\mathbf{\Phi}(t-1)\mathbf{x}(t-1)\mid\mathcal{Y}(t-1)\right] + \hat{E}\left[\mathbf{u}(t-1)\mid\mathcal{Y}(t-1)\right]\\
+    &= \mathbf{\Phi}(t-1)\hat{E}\left[\mathbf{x}(t-1)\mid\mathcal{Y}(t-1)\right]\ \text{(过程噪声均值为0)}\\
+    &= \mathbf{\Phi}(t-1)\bar{\mathbf{x}}(t-1\mid t-1) \\
+    &= \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1\mid t-1)
 \end{aligned}
 $$
 
@@ -408,22 +408,22 @@ $$
 ### 滤波增益系数
 
 
-假定$\mathbf{x}^*(t|t-1)$已知，于是有
+假定$\mathbf{x}^*(t\mid t-1)$已知，于是有
 
 
 $$
 \begin{aligned}
-\mathbf{x}^*(t|t) &= \hat{E}[\mathbf{x}(t)|\mathcal{Y}(t)]=\hat{E}[\mathbf{x}(t)|\mathcal{Y}(t-1)]+\hat{E}[\mathbf{x}(t)|\mathcal{Z}(t)]   \\
-    &=\mathbf{x}^*(t|t-1)+\hat{E}[\mathbf{x}(t)|\mathcal{Z}(t)]
+\mathbf{x}^*(t\mid t) &= \hat{E}[\mathbf{x}(t)\mid\mathcal{Y}(t)]=\hat{E}[\mathbf{x}(t)\mid\mathcal{Y}(t-1)]+\hat{E}[\mathbf{x}(t)\mid\mathcal{Z}(t)]   \\
+    &=\mathbf{x}^*(t\mid t-1)+\hat{E}[\mathbf{x}(t)\mid\mathcal{Z}(t)]
 \end{aligned}
 $$
 
 
-注意到正交投影是线性的关系，并且$\mathcal{Z}(t)$空间中只有一个向量$\widetilde{\mathbf{y}}(t|t-1)$，因此可以设
+注意到正交投影是线性的关系，并且$\mathcal{Z}(t)$空间中只有一个向量$\widetilde{\mathbf{y}}(t\mid t-1)$，因此可以设
 
 
 $$
-\hat{E}[\mathbf{x}(t)|\mathcal{Z}(t)] = \mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1)
+\hat{E}[\mathbf{x}(t)\mid\mathcal{Z}(t)] = \mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1)
 $$
 
 
@@ -432,11 +432,11 @@ $$
 
 $$
 \begin{aligned}
-\widetilde{\mathbf{y}}(t|t-1)  &= \mathbf{y}(t)-\bar{\mathbf{y}}(t|t-1) \\
-  &= \mathbf{y}(t)-E\left[\mathbf{y}(t)|\mathcal{Y}(t-1)\right]\\
-  &= \mathbf{y}(t)-E\left[\mathbf{M}(t)\mathbf{x}(t)|\mathcal{Y}(t-1)\right]\\
-  &= \mathbf{y}(t)-\mathbf{M}(t)E\left[\mathbf{x}(t)|\mathcal{Y}(t-1)\right] \\
-  &= \mathbf{y}(t)-\mathbf{M}(t)\mathbf{x}^*(t|t-1)
+\widetilde{\mathbf{y}}(t\mid t-1)  &= \mathbf{y}(t)-\bar{\mathbf{y}}(t\mid t-1) \\
+  &= \mathbf{y}(t)-E\left[\mathbf{y}(t)\mid\mathcal{Y}(t-1)\right]\\
+  &= \mathbf{y}(t)-E\left[\mathbf{M}(t)\mathbf{x}(t)\mid\mathcal{Y}(t-1)\right]\\
+  &= \mathbf{y}(t)-\mathbf{M}(t)E\left[\mathbf{x}(t)\mid\mathcal{Y}(t-1)\right] \\
+  &= \mathbf{y}(t)-\mathbf{M}(t)\mathbf{x}^*(t\mid t-1)
 \end{aligned}
 $$
 
@@ -446,7 +446,7 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{x}^*(t|t) &= \mathbf{x}^*(t|t-1) + \mathbf{\Delta}^*(t)\left[\mathbf{y}(t)-\mathbf{M}(t)\mathbf{x}^*(t|t-1)\right]   \tag{7}
+\mathbf{x}^*(t\mid t) &= \mathbf{x}^*(t\mid t-1) + \mathbf{\Delta}^*(t)\left[\mathbf{y}(t)-\mathbf{M}(t)\mathbf{x}^*(t\mid t-1)\right]
 \end{aligned}
 $$
 
@@ -455,17 +455,17 @@ $$
 
 
 $$
-\widetilde{\mathbf{x}}(t|\mathcal{Z}(t)) = \mathbf{x}(t)-\hat{E}[\mathbf{x}(t)|\mathcal{Z}(t)] = \mathbf{x}(t) - \mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1)
+\widetilde{\mathbf{x}}(t\mid\mathcal{Z}(t)) = \mathbf{x}(t)-\hat{E}[\mathbf{x}(t)\mid\mathcal{Z}(t)] = \mathbf{x}(t) - \mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1)
 $$
 
 
-与$\widetilde{\mathbf{y}}(t|t-1)$是正交的，两者进行正交乘积有
+与$\widetilde{\mathbf{y}}(t\mid t-1)$是正交的，两者进行正交乘积有
 
 
 $$
 \begin{aligned}
-0 &= E\left\{\left[\mathbf{x}(t)-\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1)\right]\widetilde{\mathbf{y}}^T(t|t-1)\right\} \\
-    &= E\left[\mathbf{x}(t)\widetilde{\mathbf{y}}^T(t|t-1)\right]-\mathbf{\Delta}^*(t)E\left[\widetilde{\mathbf{y}}(t|t-1)\widetilde{\mathbf{y}}^T(t|t-1)\right]
+0 &= E\left\{\left[\mathbf{x}(t)-\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1)\right]\widetilde{\mathbf{y}}^T(t\mid t-1)\right\} \\
+    &= E\left[\mathbf{x}(t)\widetilde{\mathbf{y}}^T(t\mid t-1)\right]-\mathbf{\Delta}^*(t)E\left[\widetilde{\mathbf{y}}(t\mid t-1)\widetilde{\mathbf{y}}^T(t\mid t-1)\right]
 \end{aligned}
 $$
 
@@ -474,16 +474,16 @@ $$
 
 
 $$
-\mathbf{x}(t)=\bar{\mathbf{x}}(t|t-1)+\widetilde{\mathbf{x}}(t|t-1)
+\mathbf{x}(t)=\bar{\mathbf{x}}(t\mid t-1)+\widetilde{\mathbf{x}}(t\mid t-1)
 $$
 
 
-同时注意到$\bar{\mathbf{x}}(t|t-1)$在$\mathcal{Y}(t)$空间中，$\mathcal{Z}(t)$空间中的矢量是$\widetilde{\mathbf{y}}(t)$的线性组合，而$\widetilde{\mathbf{y}}(t)$是$\mathbf{y}(t)$在$\mathcal{Y}(t)$空间中的垂直分量，因此$\bar{\mathbf{x}}(t|t-1)$与$\mathcal{Z}(t)$是正交的，因此由上式可以进一步化简为
+同时注意到$\bar{\mathbf{x}}(t\mid t-1)$在$\mathcal{Y}(t)$空间中，$\mathcal{Z}(t)$空间中的矢量是$\widetilde{\mathbf{y}}(t)$的线性组合，而$\widetilde{\mathbf{y}}(t)$是$\mathbf{y}(t)$在$\mathcal{Y}(t)$空间中的垂直分量，因此$\bar{\mathbf{x}}(t\mid t-1)$与$\mathcal{Z}(t)$是正交的，因此由上式可以进一步化简为
 
 
 $$
 \begin{aligned}
-0&=E[\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{y}}^T(t|t-1)]-\mathbf{\Delta}^*(t)E[\widetilde{\mathbf{y}}(t|t-1)\widetilde{\mathbf{y}}^T(t|t-1)]
+0&=E[\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{y}}^T(t\mid t-1)]-\mathbf{\Delta}^*(t)E[\widetilde{\mathbf{y}}(t\mid t-1)\widetilde{\mathbf{y}}^T(t\mid t-1)]
 \end{aligned}
 $$
 
@@ -492,7 +492,7 @@ $$
 
 
 $$
-\widetilde{\mathbf{y}}(t|t-1) = \mathbf{M}(t)\widetilde{\mathbf{x}}(t|t-1)
+\widetilde{\mathbf{y}}(t\mid t-1) = \mathbf{M}(t)\widetilde{\mathbf{x}}(t\mid t-1)
 $$
 
 
@@ -501,8 +501,8 @@ $$
 
 $$
 \begin{aligned}
-0&=E[\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{y}}^T(t|t-1)]-\mathbf{\Delta}^*(t)E[\widetilde{\mathbf{y}}(t|t-1)\widetilde{\mathbf{y}}^T(t|t-1)] \\
-  &=E\left\{\widetilde{\mathbf{x}}(t|t-1)\left[\widetilde{\mathbf{x}}^T(t|t-1)\mathbf{M}^T(t)\right]\right\}-\mathbf{\Delta}^*(t)E[\mathbf{M}(t)\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{x}}^T(t|t-1)\mathbf{M}^T(t)]
+0&=E[\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{y}}^T(t\mid t-1)]-\mathbf{\Delta}^*(t)E[\widetilde{\mathbf{y}}(t\mid t-1)\widetilde{\mathbf{y}}^T(t\mid t-1)] \\
+  &=E\left\{\widetilde{\mathbf{x}}(t\mid t-1)\left[\widetilde{\mathbf{x}}^T(t\mid t-1)\mathbf{M}^T(t)\right]\right\}-\mathbf{\Delta}^*(t)E[\mathbf{M}(t)\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{x}}^T(t\mid t-1)\mathbf{M}^T(t)]
 \end{aligned}
 $$
 
@@ -511,7 +511,7 @@ $$
 
 
 $$
-\mathbf{P}^*(t|t-1) = E\left[\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{x}}^T(t|t-1)\right]
+\mathbf{P}^*(t\mid t-1) = E\left[\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{x}}^T(t\mid t-1)\right]
 $$
 
 
@@ -519,7 +519,7 @@ $$
 
 
 $$
-0 = \mathbf{P}^*(t|t-1)\mathbf{M}^T(t) - \mathbf{\Delta}^*(t)\mathbf{M}(t)\mathbf{P}^*(t|t-1)\mathbf{M}^T(t)
+0 = \mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t) - \mathbf{\Delta}^*(t)\mathbf{M}(t)\mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t)
 $$
 
 
@@ -527,7 +527,7 @@ $$
 
 
 $$
-\mathbf{\Delta}^*(t) = \mathbf{P}^*(t|t-1)\mathbf{M}^T(t)\left[ \mathbf{M}(t)\mathbf{P}^*(t|t-1)\mathbf{M}^T(t) \right]^{-1}  \tag{12}
+\mathbf{\Delta}^*(t) = \mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t)\left[ \mathbf{M}(t)\mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t) \right]^{-1}
 $$
 
 
@@ -539,10 +539,10 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{x}^*(t|t)
-    &=\mathbf{x}^*(t|t-1)+\hat{E}[\mathbf{x}(t)|\mathcal{Z}(t)]   \\
-    &= \hat{E}[\mathbf{x}(t)|\mathcal{Y}(t-1)]+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1) \\
-    &= \mathbf{\Phi}(t)\mathbf{x}^*(t-1|t-1)+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1) \tag{13}
+\mathbf{x}^*(t\mid t)
+    &=\mathbf{x}^*(t\mid t-1)+\hat{E}[\mathbf{x}(t)\mid\mathcal{Z}(t)]   \\
+    &= \hat{E}[\mathbf{x}(t)\mid\mathcal{Y}(t-1)]+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1) \\
+    &= \mathbf{\Phi}(t)\mathbf{x}^*(t-1\mid t-1)+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1)
 \end{aligned}
 $$
 
@@ -565,7 +565,7 @@ $$
 
 
 $$
-\mathbf{P}(t-1|t-1) = E\left[\widetilde{\mathbf{x}}(t-1|t-1)\widetilde{\mathbf{x}}^T(t-1|t-1)\right]
+\mathbf{P}(t-1\mid t-1) = E\left[\widetilde{\mathbf{x}}(t-1\mid t-1)\widetilde{\mathbf{x}}^T(t-1\mid t-1)\right]
 $$
 
 
@@ -574,9 +574,9 @@ $$
 
 $$
 \begin{aligned}
-\widetilde{\mathbf{x}}(t|t-1) &= \mathbf{x}(t) - \bar{\mathbf{x}}(t|t-1) \\
-  &= \mathbf{\Phi}(t-1)\mathbf{x}(t-1) + \mathbf{u}(t-1) - \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1|t-1) \\
-  &=\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1) + \mathbf{u}(t-1)
+\widetilde{\mathbf{x}}(t\mid t-1) &= \mathbf{x}(t) - \bar{\mathbf{x}}(t\mid t-1) \\
+  &= \mathbf{\Phi}(t-1)\mathbf{x}(t-1) + \mathbf{u}(t-1) - \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1\mid t-1) \\
+  &=\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1) + \mathbf{u}(t-1)
 \end{aligned}
 $$
 
@@ -586,9 +586,9 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{P}^*(t|t-1) &= E\left[\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{x}}^T(t|t-1)\right] \\
-    &= E\left\{\left[\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1) + \mathbf{u}(t-1)\right]\left[\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1) + \mathbf{u}(t-1)\right]^T\right\} \\
-    &= \mathbf{\Phi}(t-1)\mathbf{P}^*(t-1|t-1)\mathbf{\Phi}^T(t-1) + \mathbf{Q}(t-1)
+\mathbf{P}^*(t\mid t-1) &= E\left[\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{x}}^T(t\mid t-1)\right] \\
+    &= E\left\{\left[\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1) + \mathbf{u}(t-1)\right]\left[\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1) + \mathbf{u}(t-1)\right]^T\right\} \\
+    &= \mathbf{\Phi}(t-1)\mathbf{P}^*(t-1\mid t-1)\mathbf{\Phi}^T(t-1) + \mathbf{Q}(t-1)
 \end{aligned}
 $$
 
@@ -601,12 +601,12 @@ $$
 
 $$
 \begin{aligned}
-\widetilde{\mathbf{x}}(t|t)&=\mathbf{x}(t)-\mathbf{x}^*(t|t) \\
-    &= \mathbf{\Phi}(t-1)\mathbf{x}(t-1) - \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1|t-1) + \mathbf{u}(t-1)-\mathbf{\Delta}^*(t)\mathbf{M}(t)\widetilde{\mathbf{x}}(t|t-1) \\
-    &=\mathbf{\Phi}(t-1)\left[\mathbf{x}(t-1) - \mathbf{x}^*(t-1|t-1)\right] -\mathbf{\Delta}^*(t)\mathbf{M}(t)\widetilde{\mathbf{x}}(t|t-1) + \mathbf{u}(t-1) \\
-    &=\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1)-\mathbf{\Delta}^*(t)\mathbf{M}(t)\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1) + \mathbf{u}(t-1) \\
-    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1|t-1) + \mathbf{u}(t-1) \\
-    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]\widetilde{\mathbf{x}}(t|t-1)
+\widetilde{\mathbf{x}}(t\mid t)&=\mathbf{x}(t)-\mathbf{x}^*(t\mid t) \\
+    &= \mathbf{\Phi}(t-1)\mathbf{x}(t-1) - \mathbf{\Phi}(t-1)\mathbf{x}^*(t-1\mid t-1) + \mathbf{u}(t-1)-\mathbf{\Delta}^*(t)\mathbf{M}(t)\widetilde{\mathbf{x}}(t\mid t-1) \\
+    &=\mathbf{\Phi}(t-1)\left[\mathbf{x}(t-1) - \mathbf{x}^*(t-1\mid t-1)\right] -\mathbf{\Delta}^*(t)\mathbf{M}(t)\widetilde{\mathbf{x}}(t\mid t-1) + \mathbf{u}(t-1) \\
+    &=\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1)-\mathbf{\Delta}^*(t)\mathbf{M}(t)\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1) + \mathbf{u}(t-1) \\
+    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]\mathbf{\Phi}(t-1)\widetilde{\mathbf{x}}(t-1\mid t-1) + \mathbf{u}(t-1) \\
+    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]\widetilde{\mathbf{x}}(t\mid t-1)
 \end{aligned}
 $$
 
@@ -616,20 +616,20 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{P}(t|t) &= E\left[\widetilde{\mathbf{x}}(t|t)\widetilde{\mathbf{x}}^T(t|t)\right]   \\
-    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] E\left\{\widetilde{\mathbf{x}}(t|t-1)\widetilde{\mathbf{x}}^T(t|t-1)\right\} \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T \\
-    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] \mathbf{P}^*(t|t-1) \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T
+\mathbf{P}(t\mid t) &= E\left[\widetilde{\mathbf{x}}(t\mid t)\widetilde{\mathbf{x}}^T(t\mid t)\right]   \\
+    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] E\left\{\widetilde{\mathbf{x}}(t\mid t-1)\widetilde{\mathbf{x}}^T(t\mid t-1)\right\} \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T \\
+    &=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] \mathbf{P}^*(t\mid t-1) \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T
 \end{aligned}
 $$
 
 
 ## 线性卡尔曼滤波公式汇总
 
-在给定观测值 $\mathbf{y}(t_0),\ldots,\mathbf{y}(t)$ 的条件下，$t$ 时刻状态变量 $\mathbf{x}(t)$ 的最优估计 $\mathbf{x}^*(t|t)$ 由如下公式给出：
+在给定观测值 $\mathbf{y}(t_0),\ldots,\mathbf{y}(t)$ 的条件下，$t$ 时刻状态变量 $\mathbf{x}(t)$ 的最优估计 $\mathbf{x}^*(t\mid t)$ 由如下公式给出：
 
 
 $$
-\mathbf{x}^*(t|t) = \mathbf{\Phi}(t)\mathbf{x}^*(t-1|t-1)+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t|t-1)
+\mathbf{x}^*(t\mid t) = \mathbf{\Phi}(t)\mathbf{x}^*(t-1\mid t-1)+\mathbf{\Delta}^*(t)\widetilde{\mathbf{y}}(t\mid t-1)
 $$
 
 
@@ -637,16 +637,16 @@ $$
 
 
 $$
-\mathbf{\Delta}^*(t) = \mathbf{\Phi}(t)\mathbf{P}^*(t|t-1)\mathbf{M}^T(t)\left[ \mathbf{M}(t)\mathbf{P}^*(t|t-1)\mathbf{M}^T(t) \right]^{-1}
+\mathbf{\Delta}^*(t) = \mathbf{\Phi}(t)\mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t)\left[ \mathbf{M}(t)\mathbf{P}^*(t\mid t-1)\mathbf{M}^T(t) \right]^{-1}
 $$
 
 
-先验误差协方差矩阵$\mathbf{P}^*(t|t-1)$与后验误差协方差矩阵$\mathbf{P}(t|t)$分别由下列公式给出
+先验误差协方差矩阵$\mathbf{P}^*(t\mid t-1)$与后验误差协方差矩阵$\mathbf{P}(t\mid t)$分别由下列公式给出
 
 
 $$
 \begin{cases}
-      &\mathbf{P}^*(t|t-1) = \mathbf{\Phi}(t)\mathbf{P}^*(t-1|t-1)\mathbf{\Phi}^T(t) + \mathbf{Q}(t-1) \\
-      &\mathbf{P}(t|t)=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] \mathbf{P}^*(t|t-1) \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T
+      &\mathbf{P}^*(t\mid t-1) = \mathbf{\Phi}(t)\mathbf{P}^*(t-1\mid t-1)\mathbf{\Phi}^T(t) + \mathbf{Q}(t-1) \\
+      &\mathbf{P}(t\mid t)=\left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right] \mathbf{P}^*(t\mid t-1) \left[\mathbf{I} - \mathbf{\Delta}^*(t)\mathbf{M}(t)\right]^T
     \end{cases}
 $$
